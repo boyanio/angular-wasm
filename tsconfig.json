@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "sourceMap": false,
+    "declaration": true,
+    "outDir": "dist",
+    "lib": [
+      "es2015",
+      "dom"
+    ]
+  },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "files": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

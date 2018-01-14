@@ -1,0 +1,26 @@
+{
+  "name": "angular-wasm-demo",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "ng build",
+    "start": "ng serve"
+  },
+  "dependencies": {
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/compiler-cli": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/platform-browser-dynamic": "^5.2.0",
+    "core-js": "^2.5.3",
+    "zone.js": "^0.8.20"
+  },
+  "devDependencies": {
+    "@angular/cli": "1.6.3",
+    "@angular/compiler-cli": "^5.0.0",
+    "tslint": "~5.7.0",
+    "typescript": "~2.4.2"
+  }
+}
