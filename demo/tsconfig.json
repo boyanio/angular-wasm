@@ -9,11 +9,6 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "paths": {
-      "angular-wasm": [
-        "../dist/src"
-      ]
-    },
     "lib": [
       "es2017",
       "dom"

@@ -1,0 +1,14 @@
+# editor
+.editorconfig
+
+# demo build
+demo
+
+*.ts
+!*.d.ts
+*.js.map
+/src/*.ts
+/src/*.js.map
+!/src/*.d.ts
+*.ngfactory.js
+*.ngfactory.d.ts

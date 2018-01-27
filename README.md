@@ -7,6 +7,7 @@ To build the library, run the following in the root folder:
 ```
 npm install
 npm run build
+npm pack
 ```
 
 ## Demo
@@ -14,10 +15,7 @@ npm run build
 To build the demo, run the following in the `demo` folder:
 ```
 npm install
-npm run build
+npm start
 ```
 
-Then to see the demo, do:
-```
-npm run start
-```
+This will start a server at `http://localhost:4200` where you can see the demo.
