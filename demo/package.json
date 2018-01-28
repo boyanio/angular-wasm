@@ -14,9 +14,9 @@
     "@angular/core": "^5.2.1",
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",
+    "angular-wasm": "file:../angular-wasm-0.1.0.tgz",
     "core-js": "^2.5.3",
-    "zone.js": "^0.8.20",
-    "angular-wasm": "file:../angular-wasm-0.1.0.tgz"
+    "zone.js": "^0.8.20"
   },
   "devDependencies": {
     "@angular-devkit/core": "0.0.28",

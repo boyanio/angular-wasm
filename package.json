@@ -6,7 +6,8 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "./node_modules/.bin/ngc -p tsconfig.json"
+    "build": "./node_modules/.bin/ngc -p tsconfig.json",
+    "start:demo": "npm run build && npm pack && rmdir \"demo/node_modules/angular-wasm\" /S /Q 2>nul && cd demo && npm install angular-wasm && npm start"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,14 @@
     "@angular/common": "^5.2.1",
     "@angular/compiler": "^5.2.1",
     "@angular/compiler-cli": "^5.2.1",
-    "@angular/core": "^5.2.1",
     "@types/node": "~6.0.60",
+    "@types/webassembly-js-api": "0.0.1",
     "codelyzer": "^4.0.1",
-    "rxjs": "^5.5.2",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"
+  },
+  "dependencies": {
+    "@angular/core": "^5.2.1",
+    "rxjs": "^5.5.2"
   }
 }
