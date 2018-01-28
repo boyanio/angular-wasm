@@ -6,15 +6,6 @@ This is a simple projet where I want to show how WebAssembly could be used in An
 To build the library, run the following in the root folder:
 ```
 npm install
-npm run build
-npm pack
-```
-
-## Demo
-
-To build the demo, run the following in the `demo` folder:
-```
-npm install
 npm start
 ```
 

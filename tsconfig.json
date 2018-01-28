@@ -12,13 +12,13 @@
     "lib": [
       "es2015",
       "dom"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
     ]
   },
   "compileOnSave": false,
   "buildOnSave": false,
-  "files": [
-    "index.ts"
-  ],
   "exclude": [
     "node_modules"
   ]

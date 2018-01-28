@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "description": "A collection of components and services for Angular 2+ to help working with WebAssembly",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "./node_modules/.bin/ngc -p tsconfig.json",
-    "start:demo": "npm run build && npm pack && cd demo && npm install angular-wasm -f && npm start"
+    "build": "ng build --aot",
+    "start": "ng serve --aot"
   },
   "repository": {
     "type": "git",
@@ -17,18 +15,23 @@
     "angular",
     "WebAssembly"
   ],
+  "private": true,
   "author": "Boyan Mihaylov",
   "devDependencies": {
-    "@angular/common": "^5.2.1",
+    "@angular-devkit/core": "0.0.28",
+    "@angular/cli": "^1.6.3",
     "@angular/compiler": "^5.2.1",
     "@angular/compiler-cli": "^5.2.1",
     "@types/node": "~6.0.60",
     "@types/webassembly-js-api": "0.0.1",
     "codelyzer": "^4.0.1",
     "tslint": "~5.7.0",
-    "typescript": "~2.4.2"
+    "typescript": "~2.4.2",
+    "core-js": "^2.5.3",
+    "zone.js": "^0.8.20"
   },
   "dependencies": {
+    "@angular/common": "^5.2.1",
     "@angular/core": "^5.2.1",
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",

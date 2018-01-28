@@ -2,6 +2,7 @@
 /dist
 /tmp
 /out-tsc
+/src/assets/wasm
 
 # dependencies
 /node_modules

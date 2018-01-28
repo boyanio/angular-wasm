@@ -1,6 +1,8 @@
-import './rxjs-imports';
+import '../../rxjs-imports';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
 import { WasmComponent } from './wasm.component';
 import { Wasm3dComponent } from './wasm-3d.component';
 import { WasmService } from './wasm.service';
@@ -11,7 +13,8 @@ import { WasmService } from './wasm.service';
     Wasm3dComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   exports: [
     WasmComponent,

@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 
-import { WasmModule } from 'angular-wasm';
+import { WasmModule } from './wasm/wasm.module';
 
 import { AppComponent } from './app.component';
 
@@ -12,7 +11,6 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     WasmModule
   ],
   bootstrap: [AppComponent]
