@@ -2,6 +2,6 @@
 
 int main(int argc, char *argv[])
 {
-   printf("Hello, Angular");
-   return 0;
+  printf("Hello, Angular\n");
+  return 0;
 }

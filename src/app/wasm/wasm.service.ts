@@ -7,9 +7,10 @@ export class WasmService {
 
   constructor(private http: HttpClient) { }
 
-  instantiate(url: string, imports?: Object): Observable<WebAssembly.ResultObject> {
+  instantiate(url: string, imports?: Object): Observable<WebAssembly.Instance> {
     return this.http.get(url, { responseType: 'arraybuffer' })
-      .mergeMap(bytes => WebAssembly.instantiate(bytes, imports));
+      .mergeMap(bytes => WebAssembly.compile(bytes))
+      .mergeMap(wasmModule => WebAssembly.instantiate(wasmModule, imports));
   }
 
   createDefaultImports() {

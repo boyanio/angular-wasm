@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { WasmComponent } from './wasm.component';
+import { WasmLoggerComponent } from './wasm-logger.component';
 import { Wasm3dComponent } from './wasm-3d.component';
 import { WasmService } from './wasm.service';
 
 @NgModule({
   declarations: [
-    WasmComponent,
+    WasmLoggerComponent,
     Wasm3dComponent
   ],
   imports: [
@@ -17,7 +17,7 @@ import { WasmService } from './wasm.service';
     HttpClientModule
   ],
   exports: [
-    WasmComponent,
+    WasmLoggerComponent,
     Wasm3dComponent
   ],
   providers: [

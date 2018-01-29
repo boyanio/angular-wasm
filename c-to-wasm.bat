@@ -1,1 +1,1 @@
-emcc -O1 src\c\hello-world.c -o src\assets\wasm\hello-world.wasm -s WASM=1 -s SIDE_MODULE=1
+emcc -O2 src\c\wasm-logger.c -o src\assets\wasm\wasm-logger.wasm -s WASM=1 -s SIDE_MODULE=1 -s ONLY_MY_CODE=1
