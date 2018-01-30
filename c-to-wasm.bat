@@ -1,1 +1,0 @@
-emcc -O2 src\c\wasm-logger.c -Os -s WASM=1 -o src\assets\wasm\wasm-logger.js

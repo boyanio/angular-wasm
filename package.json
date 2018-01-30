@@ -4,8 +4,11 @@
   "description": "A collection of components and services for Angular 2+ to help working with WebAssembly",
   "license": "MIT",
   "scripts": {
-    "build": "ng build --aot",
-    "start": "ng serve --aot"
+    "build:ng": "ng build --aot",
+    "build:wasm": "node compile-wasm.js",
+    "build": "npm run build:wasm && npm run build:ng",
+    "start:ng": "ng serve --aot",
+    "start": "npm run build && npm run start:ng"
   },
   "repository": {
     "type": "git",
