@@ -1,1 +1,1 @@
-emcc -O2 src\c\wasm-logger.c -o src\assets\wasm\wasm-logger.wasm -s WASM=1 -s SIDE_MODULE=1 -s ONLY_MY_CODE=1
+emcc -O2 src\c\wasm-logger.c -Os -s WASM=1 -o src\assets\wasm\wasm-logger.js

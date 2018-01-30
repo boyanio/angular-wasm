@@ -7,7 +7,22 @@ export class WasmService {
 
   constructor(private http: HttpClient) { }
 
-  instantiate(url: string, imports?: Object): Observable<WebAssembly.Instance> {
+  instantiateJs(url: string): Observable<string> {
+    const script = document.createElement('script');
+    script.async = true;
+    document.body.appendChild(script);
+
+    return new Observable<string>(subscriber => {
+      script.onload = () => {
+        subscriber.next(script.innerHTML);
+        subscriber.complete();
+      };
+      script.onerror = (ev: ErrorEvent) => subscriber.error(ev.error);
+      script.src = url;
+    });
+  }
+
+  instantiateWasm(url: string, imports?: Object): Observable<WebAssembly.Instance> {
     return this.http.get(url, { responseType: 'arraybuffer' })
       .mergeMap(bytes => WebAssembly.compile(bytes))
       .mergeMap(wasmModule => WebAssembly.instantiate(wasmModule, imports));
@@ -16,10 +31,7 @@ export class WasmService {
   createDefaultImports() {
     return {
       env: {
-        memoryBase: 0,
-        memory: new WebAssembly.Memory({ initial: 256 }),
-        tableBase: 0,
-        table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' })
+        memory: new WebAssembly.Memory({ initial: 256 })
       }
     };
   }
