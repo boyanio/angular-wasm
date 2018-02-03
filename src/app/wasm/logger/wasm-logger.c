@@ -26,6 +26,6 @@ int main(int argc, char *argv[])
 
   printf("Hello, Angular\n");
 
-  emscripten_set_click_callback(0, 0, 1, mouse_callback);
+  emscripten_set_click_callback(0, 0, 0, mouse_callback);
   return 0;
 }

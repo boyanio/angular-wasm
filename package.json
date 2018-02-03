@@ -8,7 +8,7 @@
     "build:wasm": "node compile-wasm.js",
     "build": "npm run build:wasm && npm run build:ng",
     "start:ng": "ng serve --aot",
-    "start": "npm run build && npm run start:ng"
+    "start": "npm run build:wasm && npm run start:ng"
   },
   "repository": {
     "type": "git",
