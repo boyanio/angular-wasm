@@ -1,10 +1,12 @@
-.navbar {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-weight: 700;
+.jumbotron {
+  background-color: #18BC9C;
 }
 
-.navbar a {
+.jumbotron .lead {
   color: #fff;
   font-size: 1.5em;
+}
+
+.jumbotron a:focus, .jumbotron a:active, .jumbotron a:hover {
+  color: #fff;
 }

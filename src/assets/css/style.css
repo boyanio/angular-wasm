@@ -6,10 +6,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-section {
-  padding: 6rem 0;
-}
-
 a {
   color: #18BC9C;
 }
@@ -46,6 +42,8 @@ a:focus, a:hover, a:active {
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   background-color: #128f76;
   border-color: #128f76;
+  box-shadow: none;
+  border: 0;
 }
 
 .btn-secondary {
