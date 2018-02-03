@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { WasmService } from '../wasm.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   templateUrl: './console-logger.component.html'
@@ -12,7 +13,7 @@ export class WasmConsoleLoggerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const mod: EmModule = {
-      locateFile: file => `/assets/wasm/${file}`,
+      locateFile: file => `${environment.wasmAssetsPath}/${file}`,
       print: what => {
         this.ngZone.run(() => {
           this.logItems.push(what);
@@ -20,7 +21,7 @@ export class WasmConsoleLoggerComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.wasm.instantiateJs("/assets/wasm/console-logger.js", mod).subscribe();
+    this.wasm.instantiateJs(`${environment.wasmAssetsPath}/console-logger.js`, mod).subscribe();
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, NgZone } from '@angular/core';
 import { WasmService } from '../wasm.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   templateUrl: './hello-world.component.html',
@@ -24,7 +25,7 @@ export class WasmHelloWorldComponent implements OnInit {
         this.ngZone.run(() => this.title = what);
       }
     });
-    this.wasm.instantiateWasm('/assets/wasm/hello-world.wasm', imports)
+    this.wasm.instantiateWasm(`${environment.wasmAssetsPath}/hello-world.wasm`, imports)
       .subscribe(wasmInstance => {
         this.wasmInstance = wasmInstance;
         this.wasmInstance.exports._main();
