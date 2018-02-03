@@ -2,10 +2,9 @@ import { Component, Input, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { WasmService } from '../wasm.service';
 
 @Component({
-  selector: 'app-wasm-logger',
-  templateUrl: './wasm-logger.component.html'
+  templateUrl: './console-logger.component.html'
 })
-export class WasmLoggerComponent implements OnInit, OnDestroy {
+export class WasmConsoleLoggerComponent implements OnInit, OnDestroy {
 
   logItems: string[] = [];
 
@@ -21,7 +20,7 @@ export class WasmLoggerComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.wasm.instantiateJs("/assets/wasm/wasm-logger.js", mod).subscribe();
+    this.wasm.instantiateJs("/assets/wasm/console-logger.js", mod).subscribe();
   }
 
   ngOnDestroy(): void {

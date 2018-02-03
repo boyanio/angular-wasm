@@ -4,13 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-import { WasmLoggerComponent } from './logger/wasm-logger.component';
+import { WasmConsoleLoggerComponent } from './console-logger/console-logger.component';
 import { WasmHelloWorldComponent } from './hello-world/hello-world.component';
 import { WasmService } from './wasm.service';
 
 @NgModule({
   declarations: [
-    WasmLoggerComponent,
+    WasmConsoleLoggerComponent,
     WasmHelloWorldComponent
   ],
   imports: [
@@ -19,7 +19,7 @@ import { WasmService } from './wasm.service';
     FormsModule
   ],
   exports: [
-    WasmLoggerComponent,
+    WasmConsoleLoggerComponent,
     WasmHelloWorldComponent
   ],
   providers: [

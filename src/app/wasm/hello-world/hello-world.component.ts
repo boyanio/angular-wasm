@@ -2,7 +2,6 @@ import { Component, Input, OnInit, NgZone } from '@angular/core';
 import { WasmService } from '../wasm.service';
 
 @Component({
-  selector: 'app-wasm-hello-world',
   templateUrl: './hello-world.component.html',
   styleUrls: ['./hello-world.component.css']
 })

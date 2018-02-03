@@ -3,7 +3,7 @@ const exec = promisify(require('child_process').exec);
 
 const buildCommands = [
   'emcc -Os src/app/wasm/hello-world/hello-world.c -s WASM=1 -s SIDE_MODULE=1 -o src/assets/wasm/hello-world.wasm',
-  'emcc -Os src/app/wasm/logger/wasm-logger.c -s WASM=1 -o src/assets/wasm/wasm-logger.js'
+  'emcc -Os src/app/wasm/console-logger/console-logger.c -s WASM=1 -o src/assets/wasm/console-logger.js'
 ];
 
 return Promise.all(buildCommands.map(command => exec(command, { cwd: __dirname })))
