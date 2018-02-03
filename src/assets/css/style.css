@@ -55,3 +55,8 @@ a:focus, a:hover, a:active {
   background-color: #1a252f;
   border-color: #1a252f;
 }
+
+.demo-contents {
+  border: 2px dotted #18BC9C;
+  padding: 10px;
+}

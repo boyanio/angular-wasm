@@ -36,6 +36,7 @@
   "dependencies": {
     "@angular/common": "^5.2.1",
     "@angular/core": "^5.2.1",
+    "@angular/forms": "^5.2.3",
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.2",
