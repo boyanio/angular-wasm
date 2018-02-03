@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "build:ng": "ng build --aot",
+    "build:ng:prod": "ng build --aot --prod",
     "build:wasm": "node compile-wasm.js",
+    "build:prod": "npm run build:wasm && npm run build:ng:prod",
     "build": "npm run build:wasm && npm run build:ng",
     "start:ng": "ng serve --aot",
     "start": "npm run build:wasm && npm run start:ng"
