@@ -1,0 +1,26 @@
+.portfolio {
+  margin-bottom: -15px;
+}
+
+.portfolio .portfolio-item {
+  position: relative;
+  display: block;
+  max-width: 25rem;
+  margin-bottom: 15px;
+  display: block;
+  text-align: center;
+  font-size: 1.5rem;
+  height: 150px;
+  line-height: 150px;
+  border: 2px dotted rgba(24, 188, 156, 0.9);
+  cursor: pointer;
+}
+
+.portfolio .portfolio-item:hover {
+  color: #fff;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+  background-color: rgba(24, 188, 156, 0.9);
+  text-decoration: none;
+}

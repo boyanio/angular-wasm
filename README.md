@@ -1,5 +1,9 @@
 # angular-wasm
-This is a simple projet where I want to show how WebAssembly could be used in Angular 2+. The project includes some components and services to help this integration.
+A simple project showing how WebAssembly could be used in Angular 2+. The project includes some components and services to help this integration.
+
+## Prerequisites
+
+You need to download and install Emscripten as described on the official [website](http://kripken.github.io/emscripten-site/docs/getting_started/downloads.html).
 
 ## Build
 

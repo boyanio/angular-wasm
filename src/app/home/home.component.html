@@ -1,0 +1,9 @@
+<section class="portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-4" *ngFor="let demo of demos">
+        <a class="portfolio-item d-block mx-auto" routerLink="{{demo.routerLink}}">{{ demo.name }}</a>
+      </div>
+    </div>
+  </div>
+</section>

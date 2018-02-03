@@ -1,0 +1,10 @@
+.navbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 700;
+}
+
+.navbar a {
+  color: #fff;
+  font-size: 1.5em;
+}

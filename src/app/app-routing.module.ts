@@ -6,7 +6,7 @@ import { WasmLoggerComponent } from './wasm/logger/wasm-logger.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'logger', component: WasmLoggerComponent }
+  { path: 'logger', component: WasmLoggerComponent, data: { demo: true, name: 'Console Logger' } }
 ];
 
 @NgModule({
