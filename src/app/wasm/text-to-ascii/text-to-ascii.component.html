@@ -1,0 +1,25 @@
+<section>
+  <div class="container">
+    <h1>Text to ASCII art converter</h1>
+    <p>This example allows you to convert text to ASCII art on the fly.</p>
+    <div class="demo-contents">
+      <div class="row">
+        <div class="col-lg-6">
+          <label>Your message</label>
+          <input type="text" class="form-control" placeholder="Enter some text..." [(ngModel)]="input" (input)="onSettingsChanged()">
+        </div>
+        <div class="col-lg-3">
+          <label>Foreground character</label>
+          <input type="text" class="form-control" [(ngModel)]="foregroundChar" (input)="onSettingsChanged()" maxlength="1">
+        </div>
+        <div class="col-lg-3">
+          <label>Background character</label>
+          <input type="text" class="form-control" [(ngModel)]="backgroundChar" (input)="onSettingsChanged()" maxlength="1">
+        </div>
+      </div>
+      <pre>
+        {{output}}
+      </pre>
+    </div>
+  </div>
+</section>
