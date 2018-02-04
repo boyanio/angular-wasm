@@ -7,5 +7,5 @@ return (async () => {
   const indexHtml = await readFile('dist/index.html', 'utf8');
   const updatedHtml = indexHtml.replace('<base href="/">', '<base href="/angular-wasm/">');
   await writeFile('dist/index.html', updatedHtml);
-  console.log('base href fixed on dist/inde.html');
+  console.log('base href fixed on dist/index.html');
 })();
