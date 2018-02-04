@@ -1,30 +1,24 @@
-import { Component, Input, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { WasmService } from '../wasm.service';
-import { environment } from '../../../environments/environment';
+import { EmWasmComponent } from '../em-wasm.component';
 
 @Component({
   templateUrl: './console-logger.component.html'
 })
-export class WasmConsoleLoggerComponent implements OnInit, OnDestroy {
+export class WasmConsoleLoggerComponent extends EmWasmComponent {
 
   logItems: string[] = [];
 
-  constructor(private wasm: WasmService, private ngZone: NgZone) { }
+  constructor(wasm: WasmService, ngZone: NgZone) {
+    super(wasm);
 
-  ngOnInit(): void {
-    const mod: EmModule = {
-      locateFile: file => `${environment.wasmAssetsPath}/${file}`,
+    this.jsFile = 'console-logger.js';
+    this.emModule = {
       print: what => {
-        this.ngZone.run(() => {
+        ngZone.run(() => {
           this.logItems.push(what);
         });
       }
     };
-
-    this.wasm.instantiateJs(`${environment.wasmAssetsPath}/console-logger.js`, mod).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.wasm.exitActiveEnvironment();
   }
 }
