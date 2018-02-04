@@ -7,14 +7,16 @@ import { FormsModule } from '@angular/forms';
 import { WasmHelloWorldComponent } from './hello-world/hello-world.component';
 import { WasmConsoleLoggerComponent } from './console-logger/console-logger.component';
 import { WasmTextToAsciiComponent } from './text-to-ascii/text-to-ascii.component';
+import { WasmBmpToAsciiComponent } from './bmp-to-ascii/bmp-to-ascii.component';
 
 import { WasmService } from './wasm.service';
 
 @NgModule({
   declarations: [
-    WasmConsoleLoggerComponent,
     WasmHelloWorldComponent,
-    WasmTextToAsciiComponent
+    WasmConsoleLoggerComponent,
+    WasmTextToAsciiComponent,
+    WasmBmpToAsciiComponent
   ],
   imports: [
     BrowserModule,
@@ -22,9 +24,10 @@ import { WasmService } from './wasm.service';
     FormsModule
   ],
   exports: [
-    WasmConsoleLoggerComponent,
     WasmHelloWorldComponent,
-    WasmTextToAsciiComponent
+    WasmConsoleLoggerComponent,
+    WasmTextToAsciiComponent,
+    WasmBmpToAsciiComponent
   ],
   providers: [
     WasmService

@@ -1,0 +1,41 @@
+<section>
+  <div class="container">
+    <h1>Bitmap to ASCII art converter</h1>
+    <p>This example allows you to convert simple bitmaps to ASCII art.</p>
+    <div class="demo-contents">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <h5>Choose one of the predefined bitmaps</h5>
+            </div>
+            <div class="col-lg-4 text-center" *ngFor="let img of predefinedImages; let i = index;">
+              <img [src]="img" alt="Hello" class="img-thumbnail" (click)="convertPredefinedBitmap(i)">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <h5>Upload your own bitmap</h5>
+            </div>
+            <div class="col-lg-12">
+              <div class="input-group mb-2">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" (change)="onFileUploaded($event.srcElement.files)">
+                  <label class="custom-file-label">Choose a bitmap file</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 text-center">
+              <img [src]="uploadedFile" *ngIf="uploadedFile" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <pre>{{ output }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,18 +1,24 @@
 /**
  * This is a simple typings definition for Emscripten's Module object
  */
+interface EmReadFileOptions {
+  encoding?: 'utf8' | 'binary';
+  flags?: string;
+}
+
 interface EmModule {
   noExitRuntime?: boolean;
-  print?: (what: string) => void;
-  exit?: (status: number, implicit?: boolean) => void;
-  locateFile?: (file: string) => string;
+  print?(what: string): void;
+  exit?(status: number, implicit?: boolean): void;
+  locateFile?(file: string): string;
   arguments?: string[];
-  preRun?: () => void;
-  ccall?: (funcName: string, returnType: string, argumentTypes: string[], arguments: any[]) => any;
+  ccall?(funcName: string, returnType: string, argumentTypes: string[], arguments: any[]): any;
 }
 
 interface EmFileSystem {
-  createPreloadedFile: (parent: string, name: string, url: string, canRead?: boolean, canWrite?: boolean) => void;
+  createPreloadedFile(parent: string, name: string, url: string, canRead?: boolean, canWrite?: boolean); void;
+  createDataFile(parent: string, name: string, data: string | Uint8Array, canRead?: boolean, canWrite?: boolean, canOwn?: boolean): void;
+  readFile(url: string, options?: EmReadFileOptions): any;
 }
 
 interface Window {
