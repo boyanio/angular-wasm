@@ -8,6 +8,7 @@ import { WasmHelloWorldComponent } from './hello-world/hello-world.component';
 import { WasmConsoleLoggerComponent } from './console-logger/console-logger.component';
 import { WasmTextToAsciiComponent } from './text-to-ascii/text-to-ascii.component';
 import { WasmBmpToAsciiComponent } from './bmp-to-ascii/bmp-to-ascii.component';
+import { Wasm3dCubeComponent } from './3d-cube/3d-cube.component';
 
 import { WasmService } from './wasm.service';
 
@@ -16,7 +17,8 @@ import { WasmService } from './wasm.service';
     WasmHelloWorldComponent,
     WasmConsoleLoggerComponent,
     WasmTextToAsciiComponent,
-    WasmBmpToAsciiComponent
+    WasmBmpToAsciiComponent,
+    Wasm3dCubeComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { WasmService } from './wasm.service';
     WasmHelloWorldComponent,
     WasmConsoleLoggerComponent,
     WasmTextToAsciiComponent,
-    WasmBmpToAsciiComponent
+    WasmBmpToAsciiComponent,
+    Wasm3dCubeComponent
   ],
   providers: [
     WasmService

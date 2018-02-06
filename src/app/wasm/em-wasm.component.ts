@@ -1,16 +1,16 @@
-import { OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, OnDestroy } from '@angular/core';
 import { WasmService } from './wasm.service';
 import { environment } from '../../environments/environment';
 
-export class EmWasmComponent implements OnInit, OnDestroy {
+export abstract class EmWasmComponent implements AfterViewInit, OnDestroy {
 
   jsFile: string;
-  emModule: EmModule;
+  emModule?: () => EmModule;
 
   constructor(protected wasm: WasmService) { }
 
-  ngOnInit(): void {
-    const mod: EmModule = this.emModule || {};
+  ngAfterViewInit(): void {
+    const mod: EmModule = (this.emModule && this.emModule()) || {};
     if (!mod.locateFile) {
       mod.locateFile = file => `${environment.wasmAssetsPath}/${file}`;
     };

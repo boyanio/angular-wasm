@@ -13,6 +13,8 @@ interface EmModule {
   locateFile?(file: string): string;
   arguments?: string[];
   ccall?(funcName: string, returnType: string, argumentTypes: string[], arguments: any[]): any;
+  preRun?: Function[];
+  canvas?: HTMLCanvasElement;
 }
 
 interface EmFileSystem {

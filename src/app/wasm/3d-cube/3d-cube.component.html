@@ -1,0 +1,36 @@
+<section>
+  <div class="container">
+    <h1>3D Cube</h1>
+    <p>This example shows how you can render 3D graphics using WebGL and manipulate it on the fly.</p>
+    <div class="demo-contents">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <h5>Choose one of the predefined images</h5>
+            </div>
+            <div class="col-lg-4 text-center" *ngFor="let img of predefinedImages; let i = index;">
+              <img [src]="img" alt="3D cube predefined image" class="img-thumbnail" (click)="selectPredefinedImage(i)">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <h5>Upload your own image</h5>
+            </div>
+            <div class="col-lg-12">
+              <div class="input-group mb-2">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" (change)="onFileUploaded($event.srcElement.files)">
+                  <label class="custom-file-label">Choose an image file</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <canvas class="3d-cube" oncontextmenu="event.preventDefault()" #canvas></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

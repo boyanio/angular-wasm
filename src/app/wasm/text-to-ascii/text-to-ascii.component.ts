@@ -20,13 +20,13 @@ export class WasmTextToAsciiComponent extends EmWasmComponent {
     this.foregroundChar = '#';
     this.backgroundChar = '.';
     this.jsFile = 'text-to-ascii.js';
-    this.emModule = {
+    this.emModule = () => ({
       print: what => {
         ngZone.run(() => {
           this.output += '\n' + what;
         });
       }
-    };
+    });
   }
 
   onSettingsChanged() {

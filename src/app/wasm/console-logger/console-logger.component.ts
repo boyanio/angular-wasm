@@ -13,12 +13,12 @@ export class WasmConsoleLoggerComponent extends EmWasmComponent {
     super(wasm);
 
     this.jsFile = 'console-logger.js';
-    this.emModule = {
+    this.emModule = () => ({
       print: what => {
         ngZone.run(() => {
           this.logItems.push(what);
         });
       }
-    };
+    });
   }
 }

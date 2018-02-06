@@ -4,7 +4,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SafeUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { WasmService } from '../wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
-import { environment } from '../../../environments/environment';
 
 @Component({
   templateUrl: './bmp-to-ascii.component.html',
@@ -51,7 +50,7 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
         this.uploadedFile = this.domSanitizer.bypassSecurityTrustUrl(
           URL.createObjectURL(new Blob([inputArray])));
       });
-    }
+    };
     reader.readAsArrayBuffer(files[0]);
   }
 

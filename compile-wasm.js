@@ -6,6 +6,7 @@ const buildPromises = [
   'emcc -Os src/app/wasm/console-logger/console-logger.c -s WASM=1 -o src/assets/wasm/console-logger.js',
   'em++ -Os src/app/wasm/text-to-ascii/text-to-ascii.cpp -s WASM=1 -o src/assets/wasm/text-to-ascii.js --preload-file src/app/wasm/text-to-ascii/text-to-ascii.font.txt -s EXTRA_EXPORTED_RUNTIME_METHODS="[\'ccall\']"',
   'em++ -Os src/app/wasm/bmp-to-ascii/bmp-to-ascii.cpp -s WASM=1 -o src/assets/wasm/bmp-to-ascii.js --use-preload-plugins -s EXTRA_EXPORTED_RUNTIME_METHODS="[\'ccall\']"',
+  'emcc -Os src/app/wasm/3d-cube/soil/libSOIL.bc src/app/wasm/3d-cube/3d-cube.c -s WASM=1 -o src/assets/wasm/3d-cube.js -s LEGACY_GL_EMULATION=1 -Isrc/app/wasm/3d-cube/soil -s EXTRA_EXPORTED_RUNTIME_METHODS="[\'ccall\']"',
 ]
   .map(command => exec(command, { cwd: __dirname }));
 
