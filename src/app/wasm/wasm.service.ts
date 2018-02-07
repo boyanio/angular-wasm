@@ -15,6 +15,7 @@ export class WasmService {
    */
   instantiateJs(url: string, moduleObj?: EmModule): Observable<string> {
     const script = document.createElement('script');
+    script.id = 'emscripten';
     script.async = true;
     document.body.appendChild(script);
 
@@ -59,6 +60,14 @@ export class WasmService {
     catch (err) {
       if (err.name !== 'ExitStatus')
         throw err;
+    }
+
+    window.Module = null;
+
+    // Remove the associated loader
+    const script = document.getElementById('emscripten');
+    if (script) {
+      document.body.removeChild(script);
     }
   }
 
