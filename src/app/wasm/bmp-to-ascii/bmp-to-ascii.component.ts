@@ -7,6 +7,8 @@ import { EmWasmComponent } from '../em-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
+const allowedMimeTypes = ['image/bmp', 'image/x-windows-bmp'];
+
 @Component({
   templateUrl: './bmp-to-ascii.component.html',
   styleUrls: ['./bmp-to-ascii.component.css']
@@ -16,6 +18,8 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
   output: string;
   uploadedFile: SafeUrl;
   predefinedImages: string[];
+  error: string;
+  fileUploadAccept: string;
 
   constructor(
     wasm: WasmService,
@@ -26,13 +30,24 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
     super(wasm);
 
     this.jsFile = 'bmp-to-ascii.js';
+    this.fileUploadAccept = allowedMimeTypes.join(',');
     this.predefinedImages = ['assets/img/ascii/hello.bmp', 'assets/img/ascii/angular.bmp', 'assets/img/ascii/heart.bmp'];
+    this.emModule = () => ({
+      printErr: (what: string) => {
+        this.ngZone.run(() => this.error = what);
+      }
+    });
   }
 
   convertPredefinedBitmap(index: number) {
+    this.uploadedFile = null;
+    this.error = null;
+
     const imageUrl: string = this.predefinedImages[index];
     this.httpClient.get(imageUrl, { responseType: 'arraybuffer' })
-      .subscribe(imageBytes => this.convertToAscii(getFileName(imageUrl), new Uint8Array(imageBytes)));
+      .subscribe(imageBytes => {
+        this.convertToAscii(getFileName(imageUrl), new Uint8Array(imageBytes));
+      });
   }
 
   onFileUploaded(files: FileList) {
@@ -40,7 +55,14 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
       return;
     }
 
+    this.error = null;
+
     const file = files[0];
+    if (allowedMimeTypes.indexOf(file.type) < 0) {
+      this.error = `Unsupported mime type ${file.type}`;
+      return;
+    }
+
     const fileName = file.name;
 
     const reader = new FileReader();

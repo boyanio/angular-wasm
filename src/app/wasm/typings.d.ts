@@ -9,6 +9,7 @@ interface EmReadFileOptions {
 interface EmModule {
   noExitRuntime?: boolean;
   print?(what: string): void;
+  printErr?(what: string): void;
   exit?(status: number, implicit?: boolean): void;
   locateFile?(file: string): string;
   arguments?: string[];
