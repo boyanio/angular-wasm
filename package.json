@@ -9,7 +9,7 @@
     "build:wasm": "node compile-wasm.js",
     "build:prod": "npm run build:wasm && npm run build:ng:prod",
     "build": "npm run build:wasm && npm run build:ng",
-    "build:boyan": "npm run build:prod && node fix-base-href.js",
+    "build:my": "npm run build:prod && node my-post-build.js",
     "start:ng": "ng serve --aot",
     "start": "npm run build:wasm && npm run start:ng"
   },

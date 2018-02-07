@@ -1,6 +1,5 @@
 # compiled output
-/dist/*
-!/dist/.htaccess
+/dist
 /tmp
 /out-tsc
 /src/assets/wasm
