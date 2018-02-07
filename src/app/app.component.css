@@ -10,3 +10,7 @@
 .jumbotron a:focus, .jumbotron a:active, .jumbotron a:hover {
   color: #fff;
 }
+
+.jumbotron img {
+  max-width: 200px;
+}
