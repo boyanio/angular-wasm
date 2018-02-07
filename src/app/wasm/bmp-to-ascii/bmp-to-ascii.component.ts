@@ -82,6 +82,8 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
     // Create a virtual file name from the selected file
     this.wasm.createDataFile(fileName, inputArray, true);
     const resultCode = Module.ccall('bmp_to_ascii', 'int', ['string'], [fileName]);
+    FS.unlink(fileName);
+
     if (resultCode) {
       throw Error('The selected file cannot be converted to ASCII');
     }

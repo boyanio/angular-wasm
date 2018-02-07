@@ -22,6 +22,7 @@ interface EmFileSystem {
   createPreloadedFile(parent: string, name: string, url: string, canRead?: boolean, canWrite?: boolean); void;
   createDataFile(parent: string, name: string, data: string | Uint8Array, canRead?: boolean, canWrite?: boolean, canOwn?: boolean): void;
   readFile(url: string, options?: EmReadFileOptions): any;
+  unlink(path: string): void;
 }
 
 interface Window {

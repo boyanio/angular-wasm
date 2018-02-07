@@ -70,6 +70,8 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
 
   private setTexture(fileName: string, inputArray: Uint8Array) {
     this.wasm.createDataFile(fileName, inputArray, true);
+    FS.createDataFile('/', fileName, inputArray, true);
     Module.ccall('set_texture', 'void', ['string'], [fileName]);
+    FS.unlink(fileName);
   }
 }
