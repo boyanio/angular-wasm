@@ -90,4 +90,29 @@ export class WasmService {
       }
     };
   }
+
+  /**
+   * Creates a danew data file in the memory
+   * 
+   * @param fileName the file name 
+   * @param inputArray the file contents
+   */
+  createDataFile(fileName: string, inputArray: Uint8Array, canRead?: boolean, canWrite?: boolean) {
+    try {
+      FS.createDataFile('/', fileName, inputArray, canRead, canWrite);
+    }
+    catch (err) {
+      if (err.code !== 'EEXIST')
+        throw err;
+    }
+  }
+
+  /**
+   * Reads a file from the memory as a text
+   * 
+   * @param fileName the file name
+   */
+  readTextFile(fileName: string): string {
+    return FS.readFile(fileName, { encoding: 'utf8' });
+  }
 }

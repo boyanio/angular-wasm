@@ -5,16 +5,6 @@ import { EmWasmComponent } from '../em-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
-const tryCreateDataFile = (fileName: string, inputArray: Uint8Array) => {
-  try {
-    FS.createDataFile('/', fileName, inputArray, true);
-  }
-  catch (err) {
-    if (err.code !== 'EEXIST')
-      throw err;
-  }
-};
-
 @Component({
   templateUrl: './3d-cube.component.html',
   styleUrls: ['./3d-cube.component.css']
@@ -60,7 +50,7 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
   }
 
   private setTexture(fileName: string, inputArray: Uint8Array) {
-    tryCreateDataFile(fileName, inputArray);
+    this.wasm.createDataFile(fileName, inputArray, true);
     Module.ccall('set_texture', 'void', ['string'], [fileName]);
   }
 }
