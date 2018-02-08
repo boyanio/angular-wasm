@@ -1,3 +1,7 @@
 canvas.3d-cube {
   border: 0px none;
 }
+
+.img-thumbnail {
+  cursor: pointer;
+}
