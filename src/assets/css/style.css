@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
@@ -59,4 +63,17 @@ a:focus, a:hover, a:active {
 .demo-contents {
   border: 2px dotted #18BC9C;
   padding: 10px;
+}
+
+.app-loader {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+
+.app-loader .container {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
 }
