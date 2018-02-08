@@ -127,6 +127,12 @@ void set_texture(const char* fileName) {
 }
 
 int main(int argc, char **argv) {
+
+	if (argc != 2) {
+		printf("You should supply one and only one parameter: the initial texture image\n");
+		return -1;
+	}
+
 	/* Creation of the window */
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -143,7 +149,7 @@ int main(int argc, char **argv) {
 	glBindTexture(GL_TEXTURE_2D, texture_id);
 
 	/* Load and apply the texture */
-	set_texture("angular.png");
+	set_texture(argv[1]);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

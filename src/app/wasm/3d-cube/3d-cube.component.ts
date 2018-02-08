@@ -7,6 +7,8 @@ const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
 const allowedMimeTypes = ['image/bmp', 'image/x-windows-bmp', 'image/jpeg', 'image/pjpeg', 'image/png'];
 
+const defaultImage = 'assets/img/3d-cube/angular.png';
+
 @Component({
   templateUrl: './3d-cube.component.html',
   styleUrls: ['./3d-cube.component.css']
@@ -23,10 +25,11 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
 
     this.jsFile = '3d-cube.js';
     this.fileUploadAccept = allowedMimeTypes.join(',');
-    this.predefinedImages = ['assets/img/3d-cube/angular.png', 'assets/img/3d-cube/cat.png', 'assets/img/3d-cube/embroidery.png'];
+    this.predefinedImages = [defaultImage, 'assets/img/3d-cube/cat.png', 'assets/img/3d-cube/embroidery.png'];
     this.emModule = () => ({
+      arguments: [getFileName(defaultImage)],
       preRun: [
-        () => FS.createPreloadedFile('/', 'angular.png', 'assets/img/3d-cube/angular.png', true)
+        () => FS.createPreloadedFile('/', 'angular.png', defaultImage, true)
       ],
       canvas: <HTMLCanvasElement>this.canvas.nativeElement,
       printErr: (what: string) => {
@@ -69,8 +72,18 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
   }
 
   private setTexture(fileName: string, inputArray: Uint8Array) {
-    this.wasm.createDataFile(fileName, inputArray, true);
+    const isDefaultImage = fileName === getFileName(defaultImage);
+
+    // Default image is always there
+    if (!isDefaultImage) {
+      FS.createDataFile('/', fileName, inputArray, true);
+    }
+
     Module.ccall('set_texture', 'void', ['string'], [fileName]);
-    FS.unlink(fileName);
+
+    // Delete the file afterwards to free memory
+    if (!isDefaultImage) {
+      FS.unlink(fileName);
+    }
   }
 }
