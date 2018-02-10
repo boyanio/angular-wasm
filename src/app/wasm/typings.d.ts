@@ -6,6 +6,10 @@ interface EmReadFileOptions {
   flags?: string;
 }
 
+interface CcallOptions {
+  async?: boolean;
+}
+
 interface EmModule {
   noExitRuntime?: boolean;
   print?(what: string): void;
@@ -13,7 +17,7 @@ interface EmModule {
   exit?(status: number, implicit?: boolean): void;
   locateFile?(file: string): string;
   arguments?: string[];
-  ccall?(funcName: string, returnType: string, argumentTypes: string[], arguments: any[]): any;
+  ccall?(funcName: string, returnType: string, argumentTypes: string[], arguments: any[], options?: CcallOptions): any;
   preRun?: Function[];
   canvas?: HTMLCanvasElement;
 }

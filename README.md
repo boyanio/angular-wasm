@@ -7,16 +7,16 @@ You need to download and install Emscripten as described on the official [websit
 
 ## Build
 
-To build the library, run the following in the root folder:
+To build the demo, run the following in the root folder:
 ```
 npm install
 npm start
 ```
 
-This will start a server at `http://localhost:4200` where you can see the demo.
+Then you can open your browser at `http://localhost:4200` to see the demo.
 
 ### Pre-compiled dependencies
-For some of the examples, I have pre-compiled parts of the C/C++ source into a linked bitcode (*.bc* files) to ease the build process.
+For some of the examples, I have pre-compiled parts of the C/C++ source into linked bitcode (*.bc* files) to ease the build process.
 
 + [libSOIL](https://github.com/boyanio/SOIL-wasm) - Simple OpenGL Image Library (SOIL) is a tiny C library used primarily for uploading textures into OpenGL
 

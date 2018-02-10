@@ -77,3 +77,9 @@ a:focus, a:hover, a:active {
   height: 100%;
   vertical-align: middle;
 }
+
+.ladda-button {
+  padding: 0.37rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+}
