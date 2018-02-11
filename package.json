@@ -19,7 +19,8 @@
   },
   "keywords": [
     "angular",
-    "WebAssembly"
+    "WebAssembly",
+    "JavaScritp"
   ],
   "private": true,
   "author": "Boyan Mihaylov",
@@ -32,9 +33,7 @@
     "@types/webassembly-js-api": "0.0.1",
     "codelyzer": "^4.0.1",
     "tslint": "~5.7.0",
-    "typescript": "~2.4.2",
-    "core-js": "^2.5.3",
-    "zone.js": "^0.8.20"
+    "typescript": "~2.4.2"
   },
   "dependencies": {
     "@angular/common": "^5.2.1",
@@ -44,6 +43,8 @@
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.2",
     "angular2-ladda": "^1.2.3",
-    "rxjs": "^5.5.2"
+    "core-js": "^2.5.3",
+    "rxjs": "^5.5.2",
+    "zone.js": "^0.8.20"
   }
 }
