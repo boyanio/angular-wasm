@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { WasmService } from '../wasm.service';
+import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
@@ -20,7 +20,7 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
   error: string;
   fileUploadAccept: string;
 
-  constructor(wasm: WasmService, private httpClient: HttpClient, private ngZone: NgZone) {
+  constructor(wasm: EmWasmService, private httpClient: HttpClient, private ngZone: NgZone) {
     super(wasm);
 
     this.jsFile = '3d-cube.js';

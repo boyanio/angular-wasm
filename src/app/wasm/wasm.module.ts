@@ -12,7 +12,7 @@ import { WasmBmpToAsciiComponent } from './bmp-to-ascii/bmp-to-ascii.component';
 import { Wasm3dCubeComponent } from './3d-cube/3d-cube.component';
 import { WasmProofOfWorkComponent } from './proof-of-work/proof-of-work.component';
 
-import { WasmService } from './wasm.service';
+import { EmWasmService } from './em-wasm.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { WasmService } from './wasm.service';
     })
   ],
   providers: [
-    WasmService
+    EmWasmService
   ]
 })
 export class WasmModule { }

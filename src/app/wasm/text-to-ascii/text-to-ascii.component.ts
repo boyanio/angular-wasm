@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { WasmService } from '../wasm.service';
+import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 import { environment } from '../../../environments/environment';
 
@@ -13,7 +13,7 @@ export class WasmTextToAsciiComponent extends EmWasmComponent {
   backgroundChar: string;
   output: string;
 
-  constructor(wasm: WasmService, ngZone: NgZone) {
+  constructor(wasm: EmWasmService, ngZone: NgZone) {
     super(wasm);
 
     this.output = '';

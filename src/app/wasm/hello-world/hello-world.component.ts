@@ -1,6 +1,15 @@
 import { Component, Input, OnInit, NgZone } from '@angular/core';
-import { WasmService } from '../wasm.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+
+const utf8ToString = (heap: Uint8Array, offset: number) => {
+  let s = '';
+  for (let i = offset; heap[i]; i++) {
+    s += String.fromCharCode(heap[i]);
+  }
+  return s;
+};
 
 @Component({
   templateUrl: './hello-world.component.html',
@@ -15,17 +24,23 @@ export class WasmHelloWorldComponent implements OnInit {
   result: number;
   wasmInstance: WebAssembly.Instance;
 
-  constructor(private wasm: WasmService, private ngZone: NgZone) { }
+  constructor(private http: HttpClient, private ngZone: NgZone) { }
 
   ngOnInit(): void {
-    const imports = this.wasm.createDefaultImports();
-    Object.assign(imports.env, {
-      _say: ptr => {
-        const what = this.wasm.utf8ToString(new Uint8Array(imports.env.memory.buffer), ptr);
-        this.ngZone.run(() => this.title = what);
+    const imports = {
+      env: {
+        memoryBase: 0,
+        memory: new WebAssembly.Memory({ initial: 256 }),
+        tableBase: 0,
+        table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' }),
+        _say: ptr => {
+          const what = utf8ToString(new Uint8Array(imports.env.memory.buffer), ptr);
+          this.ngZone.run(() => this.title = what);
+        }
       }
-    });
-    this.wasm.instantiateWasm(`${environment.wasmAssetsPath}/hello-world.wasm`, imports)
+    };
+
+    this.instantiateWasm(`${environment.wasmAssetsPath}/hello-world.wasm`, imports)
       .subscribe(wasmInstance => {
         this.wasmInstance = wasmInstance;
         this.wasmInstance.exports._main();
@@ -35,5 +50,11 @@ export class WasmHelloWorldComponent implements OnInit {
 
   multiply() {
     this.result = this.wasmInstance.exports._mul(this.firstNumber, this.secondNumber);
+  }
+
+  private instantiateWasm(url: string, imports?: Object): Observable<WebAssembly.Instance> {
+    return this.http.get(url, { responseType: 'arraybuffer' })
+      .mergeMap(bytes => WebAssembly.compile(bytes))
+      .mergeMap(wasmModule => WebAssembly.instantiate(wasmModule, imports));
   }
 }

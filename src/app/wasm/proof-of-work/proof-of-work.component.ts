@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { WasmService } from '../wasm.service';
+import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 
 export interface Proof {
@@ -49,7 +49,7 @@ export class WasmProofOfWorkComponent extends EmWasmComponent {
   statisticsItems: StatisticsItem[];
   private startTime: Date;
 
-  constructor(wasm: WasmService, private ngZone: NgZone) {
+  constructor(wasm: EmWasmService, private ngZone: NgZone) {
     super(wasm);
 
     this.jsFile = 'proof-of-work.js';

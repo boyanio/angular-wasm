@@ -2,7 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
-import { WasmService } from '../wasm.service';
+import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
@@ -22,7 +22,7 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
   fileUploadAccept: string;
 
   constructor(
-    wasm: WasmService,
+    wasm: EmWasmService,
     private ngZone: NgZone,
     private domSanitizer: DomSanitizer,
     private httpClient: HttpClient) {
