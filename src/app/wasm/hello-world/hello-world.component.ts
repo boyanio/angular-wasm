@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 
 const utf8ToString = (heap: Uint8Array, offset: number) => {

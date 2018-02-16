@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
 import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 
@@ -39,7 +39,7 @@ const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) => {
   templateUrl: './proof-of-work.component.html',
   styleUrls: ['./proof-of-work.component.css']
 })
-export class WasmProofOfWorkComponent extends EmWasmComponent {
+export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterViewInit, OnDestroy {
 
   input: string;
   leadingZeros: number;
@@ -68,14 +68,14 @@ export class WasmProofOfWorkComponent extends EmWasmComponent {
 
   ngAfterViewInit() {
     // This will be called from our Emscripten injected library
-    window["onProofOfWorkDone"] = (result: number, iterations: number, hash: string) => {
+    window['onProofOfWorkDone'] = (result: number, iterations: number, hash: string) => {
       this.ngZone.run(() => this.onProofOfWorkDone(result, iterations, hash));
     };
     super.ngAfterViewInit();
   }
 
   ngOnDestroy() {
-    delete window["onProofOfWorkDone"];
+    delete window['onProofOfWorkDone'];
     super.ngOnDestroy();
   }
 

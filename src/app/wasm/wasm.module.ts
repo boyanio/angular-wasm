@@ -28,7 +28,7 @@ import { EmWasmService } from './em-wasm.service';
     HttpClientModule,
     FormsModule,
     LaddaModule.forRoot({
-      style: "zoom-in",
+      style: 'zoom-in',
       spinnerSize: 30,
     })
   ],

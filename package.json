@@ -10,7 +10,8 @@
     "build:prod": "npm run build:wasm && npm run build:ng:prod && node post-build.js",
     "build": "npm run build:wasm && npm run build:ng",
     "start:ng": "ng serve --aot",
-    "start": "npm run build:wasm && npm run start:ng"
+    "start": "npm run build:wasm && npm run start:ng",
+    "lint": "ng lint"
   },
   "repository": {
     "type": "git",

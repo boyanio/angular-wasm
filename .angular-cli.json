@@ -22,6 +22,12 @@
       }
     }
   ],
+  "lint": [
+    {
+      "project": "tsconfig.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
   "defaults": {
     "styleExt": "css",
     "component": {}
