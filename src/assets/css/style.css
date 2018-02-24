@@ -63,6 +63,7 @@ a:focus, a:hover, a:active {
 .demo-contents {
   border: 2px dotted #18BC9C;
   padding: 10px;
+  margin-bottom: 50px;
 }
 
 .app-loader {
