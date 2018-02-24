@@ -9,6 +9,12 @@ const allowedMimeTypes = ['image/bmp', 'image/x-windows-bmp', 'image/jpeg', 'ima
 
 const defaultImage = 'assets/img/3d-cube/angular.png';
 
+const requestFullscreen =
+  document.documentElement.requestFullscreen
+  || document.documentElement.webkitRequestFullscreen
+  || document.documentElement['msRequestFullscreen']
+  || document.documentElement['mozRequestFullScreen'];
+
 @Component({
   templateUrl: './3d-cube.component.html',
   styleUrls: ['./3d-cube.component.css']
@@ -19,10 +25,12 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
   predefinedImages: string[];
   error: string;
   fileUploadAccept: string;
+  supportsFullscreen: boolean;
 
   constructor(wasm: EmWasmService, private httpClient: HttpClient, private ngZone: NgZone) {
     super(wasm);
 
+    this.supportsFullscreen = !!requestFullscreen;
     this.jsFile = '3d-cube.js';
     this.fileUploadAccept = allowedMimeTypes.join(',');
     this.predefinedImages = [defaultImage, 'assets/img/3d-cube/cat.png', 'assets/img/3d-cube/embroidery.png'];
@@ -38,6 +46,12 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
         }
       }
     });
+  }
+
+  toggleFullscreen() {
+    if (requestFullscreen) {
+      requestFullscreen.bind(this.canvas.nativeElement)();
+    }
   }
 
   selectPredefinedImage(index: number) {
