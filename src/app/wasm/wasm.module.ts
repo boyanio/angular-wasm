@@ -5,7 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LaddaModule } from 'angular2-ladda';
 
+import { HumanizeTimePipe } from './humanize-time-pipe';
+
 import { WasmHelloWorldComponent } from './hello-world/hello-world.component';
+import { WasmFibonacciComponent } from './fibonacci/fibonacci.component';
 import { WasmConsoleLoggerComponent } from './console-logger/console-logger.component';
 import { WasmTextToAsciiComponent } from './text-to-ascii/text-to-ascii.component';
 import { WasmBmpToAsciiComponent } from './bmp-to-ascii/bmp-to-ascii.component';
@@ -16,7 +19,9 @@ import { EmWasmService } from './em-wasm.service';
 
 @NgModule({
   declarations: [
+    HumanizeTimePipe,
     WasmHelloWorldComponent,
+    WasmFibonacciComponent,
     WasmConsoleLoggerComponent,
     WasmTextToAsciiComponent,
     WasmBmpToAsciiComponent,

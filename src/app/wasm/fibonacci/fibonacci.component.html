@@ -1,0 +1,60 @@
+<section>
+  <div class="container">
+    <h1>Fibonacci Battlefield</h1>
+    <p>This example shows the "raw" communication between JavaScript and WebAssembly without using Emscripten's glue code. Inspired
+      by
+      <a href="https://hackernoon.com/how-to-get-a-performance-boost-using-webassembly-8844ec6dd665" target="_blank">devlucky</a>, the example demonstrates the performance difference between JavaScript and WebAssembly when calculating
+      Fibonacci's series using three different implementations: loop, recursion, memoization.</p>
+
+    <div class="demo-contents" *ngIf="loaded">
+      <h2>{{ title }}</h2>
+      <form (ngSubmit)="start()">
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="form-group">
+              <label>Number:</label>
+              <input type="number" class="form-control" name="number" required min="1" [(ngModel)]="number" [disabled]="isCalculating"
+                autocomplete="off">
+              <small class="form-text text-muted">The number for which you want to calculate the fibonacci series (min. 1)</small>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="form-group">
+              <label>Runs:</label>
+              <input type="number" class="form-control" name="runs" required min="1" [(ngModel)]="runs" [disabled]="isCalculating" autocomplete="off">
+              <small class="form-text text-muted">How many times to run the calculations before taking an average</small>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary btn-block" [ladda]="isCalculating">Start</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="row" *ngIf="results">
+        <div class="col-lg-12">
+          <h2>Results</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">Loop</th>
+                <th scope="col">Recursive</th>
+                <th scope="col">Memoization</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let result of results">
+                <th scope="row">{{ result.name }}</th>
+                <td *ngFor="let func of ['fibonacciLoop', 'fibonacciRec', 'fibonacciMemo']" [class]="cellClass(result, func)">
+                  {{ result[func] | humanizeTime }} {{ fastDiff(result, func) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
