@@ -38,7 +38,7 @@ export class WasmFibonacciComponent implements OnInit {
       }
     };
 
-    this.instantiateWasm(`${environment.wasmAssetsPath}/calc-competition.wasm`, imports)
+    this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, imports)
       .subscribe(result => {
         const wasmInstance = result.instance;
         wasmInstance.exports._main();
