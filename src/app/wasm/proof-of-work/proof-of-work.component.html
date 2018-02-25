@@ -47,7 +47,7 @@
               <tr *ngFor="let item of statisticsItems">
                 <td>{{ item.leadingZeros }}</td>
                 <td>{{ item.iterations }}</td>
-                <td>{{ item.timeTaken }}</td>
+                <td>{{ item.timeTaken | humanizeTime }}</td>
               </tr>
             </tbody>
           </table>

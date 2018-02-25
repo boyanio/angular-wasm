@@ -9,31 +9,13 @@ export interface Proof {
 }
 
 export interface StatisticsItem {
-  timeTaken: string;
+  timeTaken: number;
   iterations: number;
   leadingZeros: number;
 }
 
-const formatTimeTaken = (timeTakenInMs: number) => {
-  const milliseconds = timeTakenInMs % 1000;
-  const timeTakenInSec = (timeTakenInMs - milliseconds) / 1000;
-  const hours = Math.floor(timeTakenInSec / 3600);
-  const minutes = Math.floor((timeTakenInSec - (hours * 3600)) / 60);
-  const seconds = timeTakenInSec - (hours * 3600) - (minutes * 60);
-
-  return '' + (hours < 10 ? '0' : '') + hours + ':' +
-    (minutes < 10 ? '0' : '') + minutes + ':' +
-    (seconds < 10 ? '0' : '') + seconds + '.' +
-    milliseconds;
-};
-
-const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) => {
-  let diff = a.leadingZeros - b.leadingZeros;
-  if (!diff) {
-    diff = a.iterations - b.iterations;
-  }
-  return diff;
-};
+const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) =>
+  a.leadingZeros - b.leadingZeros;
 
 @Component({
   templateUrl: './proof-of-work.component.html',
@@ -47,7 +29,7 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
   error: string;
   isWorking: boolean;
   statisticsItems: StatisticsItem[];
-  private startTime: Date;
+  private startTime: number;
 
   constructor(wasm: EmWasmService, private ngZone: NgZone) {
     super(wasm);
@@ -90,7 +72,7 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
 
     this.proof = null;
     this.isWorking = true;
-    this.startTime = new Date;
+    this.startTime = performance.now();
     Module.ccall('do_proof_of_work', null, ['string', 'number'], [this.input, this.leadingZeros], { async: true });
   }
 
@@ -98,8 +80,8 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
     this.isWorking = false;
     this.proof = { success: !result, iterations, hash };
 
-    const endTime = new Date;
-    const timeTaken = formatTimeTaken(endTime.getTime() - this.startTime.getTime());
+    const endTime = performance.now();
+    const timeTaken = endTime - this.startTime;
 
     this.statisticsItems.push({ leadingZeros: this.leadingZeros, iterations, timeTaken });
     this.statisticsItems.sort(sortStatisticsItems);
