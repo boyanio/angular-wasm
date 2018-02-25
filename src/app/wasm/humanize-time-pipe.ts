@@ -1,5 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+const zeroRegex = new RegExp('^0[\\.\\,]0+$');
+
+const numberToFixed = (num: number) => {
+  let fix = 4;
+  let res;
+  do {
+    res = num.toFixed(5);
+  } while (zeroRegex.test(res));
+  return res;
+};
+
 /*
  * Converts ms to human-readable time string
  * Usage:
@@ -24,7 +35,7 @@ export class HumanizeTimePipe implements PipeTransform {
     if (hours > 0) { str += `${hours}h `; }
     if (minutes > 0) { str += `${minutes}m `; }
     if (seconds > 0) { str += `${seconds}s `; }
-    if (milliseconds > 0) { str += milliseconds.toFixed(5) + 'ms'; }
+    if (milliseconds > 0) { str += numberToFixed(milliseconds) + 'ms'; }
     return str;
   }
 }
