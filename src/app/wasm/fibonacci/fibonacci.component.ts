@@ -20,7 +20,7 @@ export class WasmFibonacciComponent implements OnInit {
   private wasmSuite: BenchmarkSuite;
 
   constructor(private http: HttpClient, private ngZone: NgZone) {
-    this.number = 35;
+    this.number = 25;
     this.runs = 10;
   }
 
@@ -79,7 +79,7 @@ export class WasmFibonacciComponent implements OnInit {
       .map(r => r[func])
       .reduce((prev, val) => Math.max(prev, val), fastest);
     const diff = slowest / fastest;
-    return ` (${diff < 2 ? diff.toFixed(2) : Math.round(diff)}x)`;
+    return ` (${diff > 1 && diff < 2 ? diff.toFixed(2) : Math.round(diff)}x)`;
   }
 
   private isFastest(result: BenchmarkResult, func: string) {

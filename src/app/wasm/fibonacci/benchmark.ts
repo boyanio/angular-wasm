@@ -27,7 +27,10 @@ const runAndMeasure = (num: number, runs: number, func: (num: number) => number)
       const startTime = performance.now();
       func(num);
       const endTime = performance.now();
-      const diff = endTime - startTime;
+      let diff = endTime - startTime;
+      if (diff === 0) {
+        diff = 0.000000000001;
+      }
       return Observable.of(diff);
     }))
     .concatAll()
