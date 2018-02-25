@@ -1,0 +1,1 @@
+exports.cmd = 'emcc -Os src/app/wasm/hello-world/hello-world.c -s WASM=1 -s SIDE_MODULE=1 -o src/assets/wasm/hello-world.wasm';

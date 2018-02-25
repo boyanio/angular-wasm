@@ -1,0 +1,1 @@
+exports.cmd = 'emcc -Os src/app/wasm/console-logger/console-logger.c -s WASM=1 -o src/assets/wasm/console-logger.js';
