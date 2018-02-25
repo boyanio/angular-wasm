@@ -11,12 +11,12 @@ import { WasmProofOfWorkComponent } from './wasm/proof-of-work/proof-of-work.com
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'fibonacci', component: WasmFibonacciComponent, data: { demo: true, name: 'Fibonacci Battlefield' } },
-  { path: 'console-logger', component: WasmConsoleLoggerComponent, data: { demo: true, name: 'Console Logger' } },
+  { path: 'fibonacci', component: WasmFibonacciComponent, data: { demo: true, name: 'Fibonacci battlefield' } },
+  { path: 'console-logger', component: WasmConsoleLoggerComponent, data: { demo: true, name: 'Console logger' } },
   { path: 'text-to-ascii', component: WasmTextToAsciiComponent, data: { demo: true, name: 'Text to ASCII art converter' } },
   { path: 'bmp-to-ascii', component: WasmBmpToAsciiComponent, data: { demo: true, name: 'Bitmap to ASCII art converter' } },
-  { path: '3d-cube', component: Wasm3dCubeComponent, data: { demo: true, name: '3D Cube' } },
-  { path: 'proof-of-work', component: WasmProofOfWorkComponent, data: { demo: true, name: 'Proof of Work' } },
+  { path: '3d-cube', component: Wasm3dCubeComponent, data: { demo: true, name: '3D cube' } },
+  { path: 'proof-of-work', component: WasmProofOfWorkComponent, data: { demo: true, name: 'Proof of work' } },
 ];
 
 @NgModule({
