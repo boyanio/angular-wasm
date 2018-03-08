@@ -57,7 +57,7 @@ export const exitActiveEnvironment() => {
  * @param fileName the file name
  * @param inputArray the file contents
  */
-export const createDataFile(fileName: string, inputArray: Uint8Array, canRead?: boolean, canWrite?: boolean) => {
+export const createDataFile = (fileName: string, inputArray: Uint8Array, canRead?: boolean, canWrite?: boolean) => {
   try {
     FS.createDataFile('/', fileName, inputArray, canRead, canWrite);
   } catch (err) {
