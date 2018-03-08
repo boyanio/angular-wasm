@@ -1,5 +1,4 @@
 import { Component, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
-import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 
 export interface Proof {
@@ -31,8 +30,8 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
   statisticsItems: StatisticsItem[];
   private startTime: number;
 
-  constructor(wasm: EmWasmService, private ngZone: NgZone) {
-    super(wasm);
+  constructor(private ngZone: NgZone) {
+    super();
 
     this.jsFile = 'proof-of-work.js';
     this.leadingZeros = 1;

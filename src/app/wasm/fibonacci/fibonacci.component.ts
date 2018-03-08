@@ -1,10 +1,16 @@
-import { Component, Input, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
-import { jsSuite } from './fibonacci';
-import { utf8ToString } from './tools';
+import { fibonacciLoop, fibonacciMemo, fibonacciRec } from './fibonacci';
 import { BenchmarkSuite, BenchmarkResult, runBenchmark } from './benchmark';
+
+const jsSuite: BenchmarkSuite = {
+  name: 'JavaScript',
+  fibonacciLoop,
+  fibonacciRec,
+  fibonacciMemo
+};
 
 @Component({
   templateUrl: './fibonacci.component.html'
@@ -19,7 +25,7 @@ export class WasmFibonacciComponent implements OnInit {
   results: BenchmarkResult[];
   private wasmSuite: BenchmarkSuite;
 
-  constructor(private http: HttpClient, private ngZone: NgZone) {
+  constructor(private http: HttpClient) {
     this.number = 25;
     this.runs = 10;
   }
@@ -30,18 +36,13 @@ export class WasmFibonacciComponent implements OnInit {
         memoryBase: 0,
         memory: new WebAssembly.Memory({ initial: 256 }),
         tableBase: 0,
-        table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' }),
-        _set_title: ptr => {
-          const what = utf8ToString(new Uint8Array(imports.env.memory.buffer), ptr);
-          this.ngZone.run(() => this.title = what);
-        }
+        table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' })
       }
     };
 
     this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, imports)
       .subscribe(result => {
         const wasmInstance = result.instance;
-        wasmInstance.exports._main();
 
         this.wasmSuite = {
           name: 'WebAssembly',

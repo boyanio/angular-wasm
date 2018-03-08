@@ -14,8 +14,6 @@ import { WasmBmpToAsciiComponent } from './bmp-to-ascii/bmp-to-ascii.component';
 import { Wasm3dCubeComponent } from './3d-cube/3d-cube.component';
 import { WasmProofOfWorkComponent } from './proof-of-work/proof-of-work.component';
 
-import { EmWasmService } from './em-wasm.service';
-
 @NgModule({
   declarations: [
     HumanizeTimePipe,
@@ -34,9 +32,6 @@ import { EmWasmService } from './em-wasm.service';
       style: 'zoom-in',
       spinnerSize: 30,
     })
-  ],
-  providers: [
-    EmWasmService
   ]
 })
 export class WasmModule { }

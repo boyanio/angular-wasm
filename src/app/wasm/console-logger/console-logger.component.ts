@@ -1,5 +1,4 @@
 import { Component, NgZone } from '@angular/core';
-import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 
 @Component({
@@ -9,8 +8,8 @@ export class WasmConsoleLoggerComponent extends EmWasmComponent {
 
   logItems: string[] = [];
 
-  constructor(wasm: EmWasmService, ngZone: NgZone) {
-    super(wasm);
+  constructor(ngZone: NgZone) {
+    super();
 
     this.jsFile = 'console-logger.js';
     this.emModule = () => ({

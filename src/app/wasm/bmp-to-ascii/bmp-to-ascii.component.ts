@@ -2,8 +2,8 @@ import { Component, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
-import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
+import { createDataFile, readTextFile } from '../tools';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
@@ -22,12 +22,11 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
   fileUploadAccept: string;
 
   constructor(
-    wasm: EmWasmService,
     private ngZone: NgZone,
     private domSanitizer: DomSanitizer,
     private httpClient: HttpClient) {
 
-    super(wasm);
+    super();
 
     this.jsFile = 'bmp-to-ascii.js';
     this.fileUploadAccept = allowedMimeTypes.join(',');
@@ -80,7 +79,7 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
   private convertToAscii(fileName: string, inputArray: Uint8Array) {
     // Create a virtual file name from the selected file
-    this.wasm.createDataFile(fileName, inputArray, true);
+    createDataFile(fileName, inputArray, true);
     const resultCode = Module.ccall('bmp_to_ascii', 'int', ['string'], [fileName]);
     FS.unlink(fileName);
 
@@ -90,7 +89,7 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
     this.ngZone.run(() => {
       // Read the contents of the created virtual output file
-      this.output = this.wasm.readTextFile('output.txt');
+      this.output = readTextFile('output.txt');
     });
   }
 }

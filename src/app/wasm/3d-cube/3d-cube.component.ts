@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EmWasmService } from '../em-wasm.service';
 import { EmWasmComponent } from '../em-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
@@ -27,8 +26,8 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
   fileUploadAccept: string;
   supportsFullscreen: boolean;
 
-  constructor(wasm: EmWasmService, private httpClient: HttpClient, private ngZone: NgZone) {
-    super(wasm);
+  constructor(private httpClient: HttpClient, private ngZone: NgZone) {
+    super();
 
     this.supportsFullscreen = !!requestFullscreen;
     this.jsFile = '3d-cube.js';

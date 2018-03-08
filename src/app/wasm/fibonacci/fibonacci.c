@@ -1,12 +1,5 @@
 #include <emscripten.h>
 
-extern void set_title(const char *);
-
-int main() {
-  set_title("WebAssembly vs. JavaScript\n");
-  return 0;
-}
-
 EMSCRIPTEN_KEEPALIVE
 int fibonacciLoop(int num) {
   int a = 1;
