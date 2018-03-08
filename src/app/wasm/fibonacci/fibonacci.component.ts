@@ -17,7 +17,6 @@ const jsSuite: BenchmarkSuite = {
 })
 export class WasmFibonacciComponent implements OnInit {
 
-  title: string;
   loaded: boolean;
   number: number;
   runs: number;
