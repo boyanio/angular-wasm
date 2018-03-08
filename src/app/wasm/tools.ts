@@ -28,7 +28,7 @@ export const instantiateJs = (url: string, moduleObj?: EmModule): Observable<str
 /**
  * Exits the active Emscripten environment by calling exit()
  */
-export const exitActiveEnvironment() => {
+export const exitActiveEnvironment = () => {
   if (!window.Module) {
     throw Error('No active Emscripten environment found');
   }
