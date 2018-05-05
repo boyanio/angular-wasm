@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { fibonacciLoop, fibonacciMemo, fibonacciRec } from './fibonacci';
 import { BenchmarkSuite, BenchmarkResult, runBenchmark } from './benchmark';
@@ -88,6 +89,8 @@ export class WasmFibonacciComponent implements OnInit {
 
   private instantiateWasm(url: string, imports?: Object): Observable<WebAssembly.ResultObject> {
     return this.http.get(url, { responseType: 'arraybuffer' })
-      .mergeMap(bytes => WebAssembly.instantiate(bytes, imports));
+      .pipe(
+        mergeMap(bytes => WebAssembly.instantiate(bytes, imports))
+      );
   }
 }

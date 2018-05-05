@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build:ng": "ng build --aot",
-    "build:ng:prod": "ng build --aot -prod",
+    "build:ng:prod": "ng build --prod",
     "build:wasm": "node compile-wasm.js",
     "build:prod": "npm run build:wasm && npm run build:ng:prod && node post-build.js",
     "build": "npm run build:wasm && npm run build:ng",
@@ -25,26 +25,26 @@
   "private": true,
   "author": "Boyan Mihaylov",
   "devDependencies": {
-    "@angular-devkit/core": "0.0.28",
-    "@angular/cli": "^1.7.3",
-    "@angular/compiler": "^5.2.1",
-    "@angular/compiler-cli": "^5.2.1",
+    "@angular-devkit/build-angular": "^0.6.0",
+    "@angular/cli": "^6.0.0",
+    "@angular/compiler": "^6.0.0",
+    "@angular/compiler-cli": "^6.0.0",
     "@types/node": "~6.0.60",
     "@types/webassembly-js-api": "0.0.1",
-    "codelyzer": "^4.0.1",
-    "tslint": "~5.7.0",
-    "typescript": "~2.4.2"
+    "codelyzer": "^4.3.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.7.2"
   },
   "dependencies": {
-    "@angular/common": "^5.2.1",
-    "@angular/core": "^5.2.1",
-    "@angular/forms": "^5.2.3",
-    "@angular/platform-browser": "^5.2.1",
-    "@angular/platform-browser-dynamic": "^5.2.1",
-    "@angular/router": "^5.2.2",
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0",
+    "@angular/forms": "^6.0.0",
+    "@angular/platform-browser": "^6.0.0",
+    "@angular/platform-browser-dynamic": "^6.0.0",
+    "@angular/router": "^6.0.0",
     "angular2-ladda": "^1.2.3",
-    "core-js": "^2.5.3",
-    "rxjs": "^5.5.2",
-    "zone.js": "^0.8.20"
+    "core-js": "^2.5.5",
+    "rxjs": "^6.1.0",
+    "zone.js": "^0.8.26"
   }
 }
