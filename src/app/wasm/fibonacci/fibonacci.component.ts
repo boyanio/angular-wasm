@@ -33,8 +33,7 @@ export class WasmFibonacciComponent implements OnInit {
   ngOnInit() {
     const imports = {
       env: {
-        memoryBase: 0,
-        memory: new WebAssembly.Memory({ initial: 256 })
+        memory: new WebAssembly.Memory({ initial: 256, maximum: 256 })
       }
     };
 

@@ -1,3 +1,6 @@
+#include <emscripten.h>
+
+EMSCRIPTEN_KEEPALIVE
 int fibonacciLoop(int num) {
   int a = 1;
   int b = 1;
@@ -10,6 +13,7 @@ int fibonacciLoop(int num) {
   return b;
 }
 
+EMSCRIPTEN_KEEPALIVE
 int fibonacciRec(int num) {
   if (num <= 1)
     return 1;
@@ -19,6 +23,7 @@ int fibonacciRec(int num) {
 
 int memo[10000];
 
+EMSCRIPTEN_KEEPALIVE
 int fibonacciMemo(int num) {
   if (memo[num] != -1)
     return memo[num];
