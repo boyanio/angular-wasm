@@ -41,7 +41,7 @@ const runAndMeasure = (num: number, runs: number, func: (num: number) => number)
     );
 
 export function runBenchmark(num: number, runs: number, suites: BenchmarkSuite[]): Observable<BenchmarkResult[]> {
-  for (let suite of suites) {
+  for (const suite of suites) {
     warmupSuite(suite);
   }
 
@@ -63,4 +63,4 @@ export function runBenchmark(num: number, runs: number, suites: BenchmarkSuite[]
       concatAll(),
       reduce<BenchmarkResult, BenchmarkResult[]>((acc, val) => [...acc, val], [])
     );
-};
+}

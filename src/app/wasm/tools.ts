@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
  * @param url the URL to the generated JavaScript loader
  * @param moduleObj optional module options
  */
-export const instantiateJs = (url: string, moduleObj?: EmModule): Observable<string> => {
+export function instantiateJs(url: string, moduleObj?: EmModule): Observable<string> {
   const script = document.createElement('script');
   script.id = 'emscripten';
   script.async = true;
@@ -23,12 +23,12 @@ export const instantiateJs = (url: string, moduleObj?: EmModule): Observable<str
     script.onerror = (ev: ErrorEvent) => subscriber.error(ev.error);
     script.src = url;
   });
-};
+}
 
 /**
  * Exits the active Emscripten environment by calling exit()
  */
-export const exitActiveEnvironment = () => {
+export function exitActiveEnvironment() {
   if (!window.Module) {
     throw Error('No active Emscripten environment found');
   }
@@ -50,14 +50,14 @@ export const exitActiveEnvironment = () => {
   if (script) {
     document.body.removeChild(script);
   }
-};
+}
 
 /**
  * Creates a danew data file in the memory
  * @param fileName the file name
  * @param inputArray the file contents
  */
-export const createDataFile = (fileName: string, inputArray: Uint8Array, canRead?: boolean, canWrite?: boolean) => {
+export function createDataFile(fileName: string, inputArray: Uint8Array, canRead?: boolean, canWrite?: boolean) {
   try {
     FS.createDataFile('/', fileName, inputArray, canRead, canWrite);
   } catch (err) {
@@ -65,14 +65,15 @@ export const createDataFile = (fileName: string, inputArray: Uint8Array, canRead
       throw err;
     }
   }
-};
+}
 
 /**
  * Reads a file from the memory as a text
  * @param fileName the file name
  */
-export const readTextFile = (fileName: string): string =>
-  FS.readFile(fileName, { encoding: 'utf8' });
+export function readTextFile(fileName: string): string {
+  return FS.readFile(fileName, { encoding: 'utf8' });
+}
 
 /**
  * Reads a string from the HEAP
@@ -85,4 +86,4 @@ export function utf8ToString(heap: Uint8Array, offset: number) {
     s += String.fromCharCode(heap[i]);
   }
   return s;
-};
+}

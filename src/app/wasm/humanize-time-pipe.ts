@@ -3,7 +3,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 const zeroRegex = new RegExp('^0[\\.\\,]0+$');
 
 const numberToFixed = (num: number) => {
-  let fix = 4;
   let res;
   do {
     res = num.toFixed(5);

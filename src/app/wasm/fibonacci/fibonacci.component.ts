@@ -52,8 +52,9 @@ export class WasmFibonacciComponent implements OnInit {
   }
 
   start() {
-    if (this.number < 1 || this.runs < 1)
+    if (this.number < 1 || this.runs < 1) {
       return;
+    }
 
     this.results = null;
     this.isCalculating = true;
@@ -69,8 +70,9 @@ export class WasmFibonacciComponent implements OnInit {
   }
 
   fastDiff(result: BenchmarkResult, func: string) {
-    if (!this.isFastest(result, func))
+    if (!this.isFastest(result, func)) {
       return '';
+    }
 
     const fastest = result[func];
     const slowest = this.results
