@@ -10,7 +10,7 @@ const defaultImage = 'assets/img/3d-cube/angular.png';
 
 const requestFullscreen =
   document.documentElement.requestFullscreen
-  || document.documentElement.webkitRequestFullscreen
+  || document.documentElement['webkitRequestFullscreen']
   || document.documentElement['msRequestFullscreen']
   || document.documentElement['mozRequestFullScreen'];
 
@@ -78,7 +78,7 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const inputArray = new Uint8Array(reader.result);
+      const inputArray = new Uint8Array(<ArrayBuffer>reader.result);
       this.setTexture(fileName, inputArray);
     };
     reader.readAsArrayBuffer(file);

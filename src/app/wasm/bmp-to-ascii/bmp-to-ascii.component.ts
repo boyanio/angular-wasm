@@ -66,7 +66,7 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const inputArray = new Uint8Array(reader.result);
+      const inputArray = new Uint8Array(<ArrayBuffer>reader.result);
       this.convertToAscii(fileName, inputArray);
 
       this.ngZone.run(() => {
