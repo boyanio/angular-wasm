@@ -1,22 +1,51 @@
-import { AfterViewInit, OnDestroy } from '@angular/core';
-import { instantiateJs, exitActiveEnvironment } from './tools';
+import { AfterViewInit } from '@angular/core';
+import { loadScript } from './tools';
 import { environment } from '../../environments/environment';
 
-export abstract class EmWasmComponent implements AfterViewInit, OnDestroy {
+export abstract class EmWasmComponent implements AfterViewInit {
 
-  jsFile: string;
-  emModule?: () => EmModule;
+  protected module: EmModule;
+  private moduleId: string;
+  private wasmJavaScriptLoader: string;
+  private moduleFactory: (mod: EmModule) => EmModule;
 
-  ngAfterViewInit(): void {
-    const mod: EmModule = (this.emModule && this.emModule()) || {};
-    if (!mod.locateFile) {
-      mod.locateFile = file => `${environment.wasmAssetsPath}/${file}`;
-    }
-
-    instantiateJs(`${environment.wasmAssetsPath}/${this.jsFile}`, mod).subscribe();
+  protected setupWasm(moduleId: string, wasmJavaScriptLoader: string, moduleFactory: (mod: EmModule) => EmModule) {
+    this.moduleId = moduleId;
+    this.wasmJavaScriptLoader = wasmJavaScriptLoader;
+    this.moduleFactory = moduleFactory;
   }
 
-  ngOnDestroy(): void {
-    exitActiveEnvironment();
+  ngAfterViewInit(): void {
+    loadScript(this.moduleId, `${environment.wasmAssetsPath}/${this.wasmJavaScriptLoader}`)
+      .subscribe(() => {
+        const baseModule = <EmModule>{
+          locateFile: (file: string) => `${environment.wasmAssetsPath}/${file}`
+        };
+        this.module = window[this.moduleId](this.moduleFactory(baseModule));
+      });
+  }
+
+
+  /**
+   * Creates a danew data file in the memory
+   * @param fileName the file name
+   * @param inputArray the file contents
+   */
+  protected createDataFile(fileName: string, inputArray: Uint8Array, canRead?: boolean, canWrite?: boolean) {
+    try {
+      this.module.FS_createDataFile('/', fileName, inputArray, canRead, canWrite);
+    } catch (err) {
+      if (err.code !== 'EEXIST') {
+        throw err;
+      }
+    }
+  }
+
+  /**
+   * Reads a file from the memory as a text
+   * @param fileName the file name
+   */
+  protected readTextFile(fileName: string): string {
+    return this.module.FS_readFile(fileName, { encoding: 'utf8' });
   }
 }

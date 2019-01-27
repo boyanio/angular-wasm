@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Routes, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 export interface Demo {
   name: string;

@@ -30,21 +30,24 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
     super();
 
     this.supportsFullscreen = !!requestFullscreen;
-    this.jsFile = '3d-cube.js';
     this.fileUploadAccept = allowedMimeTypes.join(',');
     this.predefinedImages = [defaultImage, 'assets/img/3d-cube/cat.png', 'assets/img/3d-cube/embroidery.png'];
-    this.emModule = () => ({
-      arguments: [getFileName(defaultImage)],
-      preRun: [
-        () => FS.createPreloadedFile('/', 'angular.png', defaultImage, true)
-      ],
-      canvas: <HTMLCanvasElement>this.canvas.nativeElement,
-      printErr: (what: string) => {
-        if (!what.startsWith('WARNING')) {
-          this.ngZone.run(() => this.error = what);
+
+    this.setupWasm(
+      'Cube3dModule',
+      '3d-cube.js',
+      mod => Object.assign(mod, {
+        arguments: [getFileName(defaultImage)],
+        preRun: [
+          () => { mod.FS_createPreloadedFile('/', getFileName(defaultImage), defaultImage, true); }
+        ],
+        canvas: <HTMLCanvasElement>this.canvas.nativeElement,
+        printErr: (what: string) => {
+          if (!what.startsWith('WARNING')) {
+            this.ngZone.run(() => this.error = what);
+          }
         }
-      }
-    });
+      }));
   }
 
   toggleFullscreen() {
@@ -89,14 +92,14 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
 
     // Default image is always there
     if (!isDefaultImage) {
-      FS.createDataFile('/', fileName, inputArray, true);
+      this.module.FS_createDataFile('/', fileName, inputArray, true);
     }
 
-    Module.ccall('set_texture', 'void', ['string'], [fileName]);
+    this.module.ccall('set_texture', 'void', ['string'], [fileName]);
 
     // Delete the file afterwards to free memory
     if (!isDefaultImage) {
-      FS.unlink(fileName);
+      this.module.FS_unlink(fileName);
     }
   }
 }

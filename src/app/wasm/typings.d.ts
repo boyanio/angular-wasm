@@ -11,28 +11,16 @@ interface CcallOptions {
 }
 
 interface EmModule {
-  noExitRuntime?: boolean;
+  arguments?: string[];
   print?(what: string): void;
   printErr?(what: string): void;
-  exit?(status: number, implicit?: boolean): void;
   locateFile?(file: string): string;
-  arguments?: string[];
   ccall?(funcName: string, returnType: string, argumentTypes: string[], arguments: any[], options?: CcallOptions): any;
   preRun?: Function[];
+  postRun?: Function[];
   canvas?: HTMLCanvasElement;
+  FS_createDataFile?(parent: string, name: string, data: string | Uint8Array, canRead?: boolean, canWrite?: boolean, canOwn?: boolean): void;
+  FS_createPreloadedFile?(parent: string, name: string, url: string, canRead?: boolean, canWrite?: boolean): void;
+  FS_readFile?(url: string, options?: EmReadFileOptions): any;
+  FS_unlink?(path: string): void;
 }
-
-interface EmFileSystem {
-  createPreloadedFile(parent: string, name: string, url: string, canRead?: boolean, canWrite?: boolean); void;
-  createDataFile(parent: string, name: string, data: string | Uint8Array, canRead?: boolean, canWrite?: boolean, canOwn?: boolean): void;
-  readFile(url: string, options?: EmReadFileOptions): any;
-  unlink(path: string): void;
-}
-
-interface Window {
-  Module: EmModule;
-  FS: EmFileSystem;
-}
-
-declare var FS: EmFileSystem;
-declare var Module: EmModule;

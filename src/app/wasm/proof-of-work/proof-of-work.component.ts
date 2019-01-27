@@ -33,18 +33,21 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
   constructor(private ngZone: NgZone) {
     super();
 
-    this.jsFile = 'proof-of-work.js';
     this.leadingZeros = 1;
     this.statisticsItems = [];
-    this.emModule = () => ({
-      printErr: (what: string) => {
-        if (what && what.startsWith && !what.startsWith('WARNING')) {
-          ngZone.run(() => this.error = what);
-        }
 
-        console.log(what);
-      }
-    });
+    this.setupWasm(
+      'ProofOfWorkModule',
+      'proof-of-work.js',
+      mod => Object.assign(mod, {
+        printErr: (what: string) => {
+          if (what && what.startsWith && !what.startsWith('WARNING')) {
+            ngZone.run(() => this.error = what);
+          }
+
+          console.log(what);
+        }
+      }));
   }
 
   ngAfterViewInit() {
@@ -57,7 +60,6 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
 
   ngOnDestroy() {
     delete window['onProofOfWorkDone'];
-    super.ngOnDestroy();
   }
 
   get canFindSolution() {
@@ -72,7 +74,7 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
     this.proof = null;
     this.isWorking = true;
     this.startTime = performance.now();
-    Module.ccall('do_proof_of_work', null, ['string', 'number'], [this.input, this.leadingZeros], { async: true });
+    this.module.ccall('do_proof_of_work', null, ['string', 'number'], [this.input, this.leadingZeros], { async: true });
   }
 
   private onProofOfWorkDone(result: number, iterations: number, hash: string) {

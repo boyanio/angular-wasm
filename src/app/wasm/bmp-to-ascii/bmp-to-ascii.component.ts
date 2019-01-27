@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { EmWasmComponent } from '../em-wasm.component';
-import { createDataFile, readTextFile } from '../tools';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
@@ -28,14 +27,17 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
     super();
 
-    this.jsFile = 'bmp-to-ascii.js';
     this.fileUploadAccept = allowedMimeTypes.join(',');
     this.predefinedImages = ['assets/img/ascii/hello.bmp', 'assets/img/ascii/angular.bmp', 'assets/img/ascii/heart.bmp'];
-    this.emModule = () => ({
-      printErr: (what: string) => {
-        this.ngZone.run(() => this.error = what);
-      }
-    });
+
+    this.setupWasm(
+      'BmpAsciiModule',
+      'bmp-to-ascii.js',
+      mod => Object.assign(mod, {
+        printErr: (what: string) => {
+          this.ngZone.run(() => this.error = what);
+        }
+      }));
   }
 
   convertPredefinedBitmap(index: number) {
@@ -79,9 +81,9 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
   private convertToAscii(fileName: string, inputArray: Uint8Array) {
     // Create a virtual file name from the selected file
-    createDataFile(fileName, inputArray, true);
-    const resultCode = Module.ccall('bmp_to_ascii', 'int', ['string'], [fileName]);
-    FS.unlink(fileName);
+    this.createDataFile(fileName, inputArray, true);
+    const resultCode = this.module.ccall('bmp_to_ascii', 'int', ['string'], [fileName]);
+    this.module.FS_unlink(fileName);
 
     if (resultCode) {
       throw Error('The selected file cannot be converted to ASCII');
@@ -89,7 +91,7 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
     this.ngZone.run(() => {
       // Read the contents of the created virtual output file
-      this.output = readTextFile('output.txt');
+      this.output = this.readTextFile('output.txt');
     });
   }
 }
