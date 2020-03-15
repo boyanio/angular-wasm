@@ -4,7 +4,7 @@
   "description": "A collection of components and services for Angular 2+ to demonstrate integration with WebAssembly",
   "license": "MIT",
   "scripts": {
-    "build:ng": "ng build --aot",
+    "build:ng": "ng build",
     "build:ng:prod": "ng build --prod",
     "build:wasm": "node compile-wasm.js",
     "build:prod": "npm run build:wasm && npm run build:ng:prod && node post-build.js",

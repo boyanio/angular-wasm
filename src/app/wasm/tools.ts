@@ -1,34 +1,30 @@
-import { Observable } from 'rxjs';
-
 /**
  * Loads a JavaScript script async into the page
+ *
  * @param id the HTML id for the script
  * @param url the URL to the generated JavaScript loader
  */
-export function loadScript(id: string, url: string): Observable<boolean> {
-  return new Observable<boolean>(subscriber => {
-    let script = <HTMLScriptElement>document.getElementById(id);
-    if (script) {
-      subscriber.next(false);
-      subscriber.complete();
-    } else {
-      script = document.createElement('script');
-      document.body.appendChild(script);
+export function loadScript(id: string, url: string): Promise<void> {
+  let script = <HTMLScriptElement>document.getElementById(id);
+  if (script) {
+    return Promise.resolve();
+  }
 
-      script.onload = () => {
-        subscriber.next(true);
-        subscriber.complete();
-      };
-      script.onerror = (ev: ErrorEvent) => subscriber.error(ev.error);
-      script.id = id;
-      script.async = true;
-      script.src = url;
-    }
+  return new Promise<void>((resolve, reject) => {
+    script = document.createElement('script');
+    document.body.appendChild(script);
+
+    script.onload = () => resolve();
+    script.onerror = (ev: ErrorEvent) => reject(ev.error);
+    script.id = id;
+    script.async = true;
+    script.src = url;
   });
 }
 
 /**
- * Reads a string from the HEAP
+ * Reads a string from a HEAP
+ *
  * @param heap the HEAP
  * @param offset the offset
  */
