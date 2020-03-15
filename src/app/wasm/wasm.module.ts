@@ -29,8 +29,8 @@ import { WasmProofOfWorkComponent } from './proof-of-work/proof-of-work.componen
     FormsModule,
     LaddaModule.forRoot({
       style: 'zoom-in',
-      spinnerSize: 30,
+      spinnerSize: 30
     })
   ]
 })
-export class WasmModule { }
+export class WasmModule {}

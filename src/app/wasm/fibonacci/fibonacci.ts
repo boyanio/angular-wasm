@@ -32,5 +32,5 @@ export const fibonacciMemo = (num: number, memo?: Object) => {
     return 1;
   }
 
-  return memo[num] = fibonacciMemo(num - 1, memo) + fibonacciMemo(num - 2, memo);
+  return (memo[num] = fibonacciMemo(num - 1, memo) + fibonacciMemo(num - 2, memo));
 };

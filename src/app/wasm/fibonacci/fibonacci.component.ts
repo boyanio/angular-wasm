@@ -17,7 +17,6 @@ const jsSuite: BenchmarkSuite = {
   templateUrl: './fibonacci.component.html'
 })
 export class WasmFibonacciComponent implements OnInit {
-
   loaded: boolean;
   number: number;
   runs: number;
@@ -31,18 +30,17 @@ export class WasmFibonacciComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, {})
-      .subscribe(result => {
-        const wasmInstance = result.instance;
+    this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, {}).subscribe(result => {
+      const wasmInstance = result.instance;
 
-        this.wasmSuite = {
-          name: 'WebAssembly',
-          fibonacciLoop: wasmInstance.exports.fibonacciLoop as FibonacciFunction,
-          fibonacciRec: wasmInstance.exports.fibonacciRec as FibonacciFunction,
-          fibonacciMemo: wasmInstance.exports.fibonacciMemo as FibonacciFunction
-        };
-        this.loaded = true;
-      });
+      this.wasmSuite = {
+        name: 'WebAssembly',
+        fibonacciLoop: wasmInstance.exports.fibonacciLoop as FibonacciFunction,
+        fibonacciRec: wasmInstance.exports.fibonacciRec as FibonacciFunction,
+        fibonacciMemo: wasmInstance.exports.fibonacciMemo as FibonacciFunction
+      };
+      this.loaded = true;
+    });
   }
 
   start() {
@@ -52,11 +50,10 @@ export class WasmFibonacciComponent implements OnInit {
 
     this.results = null;
     this.isCalculating = true;
-    runBenchmark(this.number, this.runs, [jsSuite, this.wasmSuite])
-      .subscribe(results => {
-        this.isCalculating = false;
-        this.results = results;
-      });
+    runBenchmark(this.number, this.runs, [jsSuite, this.wasmSuite]).subscribe(results => {
+      this.isCalculating = false;
+      this.results = results;
+    });
   }
 
   cellClass(result: BenchmarkResult, func: string) {
@@ -80,10 +77,12 @@ export class WasmFibonacciComponent implements OnInit {
     return this.results.every(r => r[func] >= result[func]);
   }
 
-  private instantiateWasm(url: string, imports?: WebAssembly.Imports): Observable<WebAssembly.WebAssemblyInstantiatedSource> {
-    return this.http.get(url, { responseType: 'arraybuffer' })
-      .pipe(
-        mergeMap(bytes => WebAssembly.instantiate(bytes, imports))
-      );
+  private instantiateWasm(
+    url: string,
+    imports?: WebAssembly.Imports
+  ): Observable<WebAssembly.WebAssemblyInstantiatedSource> {
+    return this.http
+      .get(url, { responseType: 'arraybuffer' })
+      .pipe(mergeMap(bytes => WebAssembly.instantiate(bytes, imports)));
   }
 }
