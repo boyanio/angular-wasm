@@ -2,7 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeUrl } from '@angular/platform-browser';
-import { EmWasmComponent } from '../em-wasm.component';
+import { EmscriptenWasmComponent } from '../emscripten-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
@@ -12,8 +12,7 @@ const allowedMimeTypes = ['image/bmp', 'image/x-windows-bmp'];
   templateUrl: './bmp-to-ascii.component.html',
   styleUrls: ['./bmp-to-ascii.component.css']
 })
-export class WasmBmpToAsciiComponent extends EmWasmComponent {
-
+export class WasmBmpToAsciiComponent extends EmscriptenWasmComponent {
   output: string;
   uploadedFile: SafeUrl;
   predefinedImages: string[];
@@ -23,21 +22,22 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
   constructor(
     private ngZone: NgZone,
     private domSanitizer: DomSanitizer,
-    private httpClient: HttpClient) {
-
-    super();
+    private httpClient: HttpClient
+  ) {
+    super('BmpAsciiModule', 'bmp-to-ascii.js');
 
     this.fileUploadAccept = allowedMimeTypes.join(',');
-    this.predefinedImages = ['assets/img/ascii/hello.bmp', 'assets/img/ascii/angular.bmp', 'assets/img/ascii/heart.bmp'];
+    this.predefinedImages = [
+      'assets/img/ascii/hello.bmp',
+      'assets/img/ascii/angular.bmp',
+      'assets/img/ascii/heart.bmp'
+    ];
 
-    this.setupWasm(
-      'BmpAsciiModule',
-      'bmp-to-ascii.js',
-      mod => Object.assign(mod, {
-        printErr: (what: string) => {
-          this.ngZone.run(() => this.error = what);
-        }
-      }));
+    this.moduleDecorator = mod => {
+      mod.printErr = (what: string) => {
+        this.ngZone.run(() => (this.error = what));
+      };
+    };
   }
 
   convertPredefinedBitmap(index: number) {
@@ -45,10 +45,9 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
     this.error = null;
 
     const imageUrl: string = this.predefinedImages[index];
-    this.httpClient.get(imageUrl, { responseType: 'arraybuffer' })
-      .subscribe(imageBytes => {
-        this.convertToAscii(getFileName(imageUrl), new Uint8Array(imageBytes));
-      });
+    this.httpClient.get(imageUrl, { responseType: 'arraybuffer' }).subscribe(imageBytes => {
+      this.convertToAscii(getFileName(imageUrl), new Uint8Array(imageBytes));
+    });
   }
 
   onFileUploaded(files: FileList) {
@@ -73,7 +72,8 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
       this.ngZone.run(() => {
         this.uploadedFile = this.domSanitizer.bypassSecurityTrustUrl(
-          URL.createObjectURL(new Blob([inputArray])));
+          URL.createObjectURL(new Blob([inputArray]))
+        );
       });
     };
     reader.readAsArrayBuffer(file);
@@ -91,7 +91,22 @@ export class WasmBmpToAsciiComponent extends EmWasmComponent {
 
     this.ngZone.run(() => {
       // Read the contents of the created virtual output file
-      this.output = this.readTextFile('output.txt');
+      this.output = this.module.FS_readFile('output.txt', { encoding: 'utf8' });
     });
+  }
+
+  private createDataFile(
+    fileName: string,
+    inputArray: Uint8Array,
+    canRead?: boolean,
+    canWrite?: boolean
+  ) {
+    try {
+      this.module.FS_createDataFile('/', fileName, inputArray, canRead, canWrite);
+    } catch (err) {
+      if (err.code !== 'EEXIST') {
+        throw err;
+      }
+    }
   }
 }

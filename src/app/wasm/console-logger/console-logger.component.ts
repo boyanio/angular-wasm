@@ -1,23 +1,19 @@
 import { Component, NgZone } from '@angular/core';
-import { EmWasmComponent } from '../em-wasm.component';
+import { EmscriptenWasmComponent } from '../emscripten-wasm.component';
 
 @Component({
   templateUrl: './console-logger.component.html'
 })
-export class WasmConsoleLoggerComponent extends EmWasmComponent {
-
+export class WasmConsoleLoggerComponent extends EmscriptenWasmComponent {
   logItems: string[] = [];
 
   constructor(ngZone: NgZone) {
-    super();
+    super('ConsoleLoggerModule', 'console-logger.js');
 
-    this.setupWasm(
-      'ConsoleLoggerModule',
-      'console-logger.js',
-      mod => Object.assign(mod, {
-        print: (what: string) => {
-          ngZone.run(() => this.logItems.push(what));
-        }
-      }));
+    this.moduleDecorator = mod => {
+      mod.print = (what: string) => {
+        ngZone.run(() => this.logItems.push(what));
+      };
+    };
   }
 }

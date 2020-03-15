@@ -1,31 +1,29 @@
 import { Component, NgZone } from '@angular/core';
-import { EmWasmComponent } from '../em-wasm.component';
+import { EmscriptenWasmComponent } from '../emscripten-wasm.component';
 
 @Component({
   templateUrl: './text-to-ascii.component.html'
 })
-export class WasmTextToAsciiComponent extends EmWasmComponent {
-
+export class WasmTextToAsciiComponent extends EmscriptenWasmComponent {
   input: string;
   foregroundChar: string;
   backgroundChar: string;
   output: string;
 
   constructor(ngZone: NgZone) {
-    super();
+    super('TextAsciiModule', 'text-to-ascii.js');
 
     this.output = '';
     this.foregroundChar = '#';
     this.backgroundChar = '.';
 
-    this.setupWasm(
-      'TextAsciiModule',
-      'text-to-ascii.js',
-      mod => Object.assign(mod, {
-        print: (what: string) => {
-          ngZone.run(() => { this.output += '\n' + what; });
-        }
-      }));
+    this.moduleDecorator = mod => {
+      mod.print = (what: string) => {
+        ngZone.run(() => {
+          this.output += '\n' + what;
+        });
+      };
+    };
   }
 
   onSettingsChanged() {
@@ -37,7 +35,13 @@ export class WasmTextToAsciiComponent extends EmWasmComponent {
         'display_ascii',
         'void',
         ['string', 'string', 'string', 'string'],
-        ['/src/app/wasm/text-to-ascii/text-to-ascii.font.txt', this.input, this.foregroundChar, this.backgroundChar]);
+        [
+          '/src/app/wasm/text-to-ascii/text-to-ascii.font.txt',
+          this.input,
+          this.foregroundChar,
+          this.backgroundChar
+        ]
+      );
     }
   }
 }

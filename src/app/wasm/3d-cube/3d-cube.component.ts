@@ -1,25 +1,30 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EmWasmComponent } from '../em-wasm.component';
+import { EmscriptenWasmComponent } from '../emscripten-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
-const allowedMimeTypes = ['image/bmp', 'image/x-windows-bmp', 'image/jpeg', 'image/pjpeg', 'image/png'];
+const allowedMimeTypes = [
+  'image/bmp',
+  'image/x-windows-bmp',
+  'image/jpeg',
+  'image/pjpeg',
+  'image/png'
+];
 
 const defaultImage = 'assets/img/3d-cube/angular.png';
 
 const requestFullscreen =
-  document.documentElement.requestFullscreen
-  || document.documentElement['webkitRequestFullscreen']
-  || document.documentElement['msRequestFullscreen']
-  || document.documentElement['mozRequestFullScreen'];
+  document.documentElement.requestFullscreen ||
+  document.documentElement['webkitRequestFullscreen'] ||
+  document.documentElement['msRequestFullscreen'] ||
+  document.documentElement['mozRequestFullScreen'];
 
 @Component({
   templateUrl: './3d-cube.component.html',
   styleUrls: ['./3d-cube.component.css']
 })
-export class Wasm3dCubeComponent extends EmWasmComponent {
-
+export class Wasm3dCubeComponent extends EmscriptenWasmComponent {
   @ViewChild('canvas') canvas: ElementRef;
   predefinedImages: string[];
   error: string;
@@ -27,27 +32,30 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
   supportsFullscreen: boolean;
 
   constructor(private httpClient: HttpClient, private ngZone: NgZone) {
-    super();
+    super('Cube3dModule', '3d-cube.js');
 
     this.supportsFullscreen = !!requestFullscreen;
     this.fileUploadAccept = allowedMimeTypes.join(',');
-    this.predefinedImages = [defaultImage, 'assets/img/3d-cube/cat.png', 'assets/img/3d-cube/embroidery.png'];
+    this.predefinedImages = [
+      defaultImage,
+      'assets/img/3d-cube/cat.png',
+      'assets/img/3d-cube/embroidery.png'
+    ];
 
-    this.setupWasm(
-      'Cube3dModule',
-      '3d-cube.js',
-      mod => Object.assign(mod, {
-        arguments: [getFileName(defaultImage)],
-        preRun: [
-          () => { mod.FS_createPreloadedFile('/', getFileName(defaultImage), defaultImage, true); }
-        ],
-        canvas: <HTMLCanvasElement>this.canvas.nativeElement,
-        printErr: (what: string) => {
-          if (!what.startsWith('WARNING')) {
-            this.ngZone.run(() => this.error = what);
-          }
+    this.moduleDecorator = mod => {
+      mod.arguments = [getFileName(defaultImage)];
+      mod.preRun = [
+        () => {
+          mod.FS_createPreloadedFile('/', getFileName(defaultImage), defaultImage, true);
         }
-      }));
+      ];
+      mod.canvas = <HTMLCanvasElement>this.canvas.nativeElement;
+      mod.printErr = (what: string) => {
+        if (!what.startsWith('WARNING')) {
+          this.ngZone.run(() => (this.error = what));
+        }
+      };
+    };
   }
 
   toggleFullscreen() {
@@ -60,7 +68,8 @@ export class Wasm3dCubeComponent extends EmWasmComponent {
     this.error = null;
 
     const imageUrl: string = this.predefinedImages[index];
-    this.httpClient.get(imageUrl, { responseType: 'arraybuffer' })
+    this.httpClient
+      .get(imageUrl, { responseType: 'arraybuffer' })
       .subscribe(imageBytes => this.setTexture(getFileName(imageUrl), new Uint8Array(imageBytes)));
   }
 

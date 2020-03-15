@@ -1,5 +1,5 @@
 import { Component, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
-import { EmWasmComponent } from '../em-wasm.component';
+import { EmscriptenWasmComponent } from '../emscripten-wasm.component';
 
 export interface Proof {
   success: boolean;
@@ -20,8 +20,8 @@ const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) =>
   templateUrl: './proof-of-work.component.html',
   styleUrls: ['./proof-of-work.component.css']
 })
-export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterViewInit, OnDestroy {
-
+export class WasmProofOfWorkComponent extends EmscriptenWasmComponent
+  implements AfterViewInit, OnDestroy {
   input: string;
   leadingZeros: number;
   proof: Proof;
@@ -31,23 +31,20 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
   private startTime: number;
 
   constructor(private ngZone: NgZone) {
-    super();
+    super('ProofOfWorkModule', 'proof-of-work.js');
 
     this.leadingZeros = 1;
     this.statisticsItems = [];
 
-    this.setupWasm(
-      'ProofOfWorkModule',
-      'proof-of-work.js',
-      mod => Object.assign(mod, {
-        printErr: (what: string) => {
-          if (what && what.startsWith && !what.startsWith('WARNING')) {
-            ngZone.run(() => this.error = what);
-          }
-
-          console.log(what);
+    this.moduleDecorator = mod => {
+      mod.printErr = (what: string) => {
+        if (what && what.startsWith && !what.startsWith('WARNING')) {
+          ngZone.run(() => (this.error = what));
         }
-      }));
+
+        console.log(what);
+      };
+    };
   }
 
   ngAfterViewInit() {
@@ -74,7 +71,13 @@ export class WasmProofOfWorkComponent extends EmWasmComponent implements AfterVi
     this.proof = null;
     this.isWorking = true;
     this.startTime = performance.now();
-    this.module.ccall('do_proof_of_work', null, ['string', 'number'], [this.input, this.leadingZeros], { async: true });
+    this.module.ccall(
+      'do_proof_of_work',
+      null,
+      ['string', 'number'],
+      [this.input, this.leadingZeros],
+      { async: true }
+    );
   }
 
   private onProofOfWorkDone(result: number, iterations: number, hash: string) {

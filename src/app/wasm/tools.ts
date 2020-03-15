@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
  * @param url the URL to the generated JavaScript loader
  */
 export function loadScript(id: string, url: string): Observable<boolean> {
-
   return new Observable<boolean>(subscriber => {
     let script = <HTMLScriptElement>document.getElementById(id);
     if (script) {
