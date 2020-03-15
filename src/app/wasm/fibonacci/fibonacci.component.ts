@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { fibonacciLoop, fibonacciMemo, fibonacciRec } from './fibonacci';
-import { BenchmarkSuite, BenchmarkResult, runBenchmark } from './benchmark';
+import { BenchmarkSuite, BenchmarkResult, runBenchmark, FibonacciFunction } from './benchmark';
 
 const jsSuite: BenchmarkSuite = {
   name: 'JavaScript',
@@ -31,21 +31,15 @@ export class WasmFibonacciComponent implements OnInit {
   }
 
   ngOnInit() {
-    const imports = {
-      env: {
-        memory: new WebAssembly.Memory({ initial: 256, maximum: 256 })
-      }
-    };
-
-    this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, imports)
+    this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, {})
       .subscribe(result => {
         const wasmInstance = result.instance;
 
         this.wasmSuite = {
           name: 'WebAssembly',
-          fibonacciLoop: wasmInstance.exports._fibonacciLoop,
-          fibonacciRec: wasmInstance.exports._fibonacciRec,
-          fibonacciMemo: wasmInstance.exports._fibonacciMemo
+          fibonacciLoop: wasmInstance.exports.fibonacciLoop as FibonacciFunction,
+          fibonacciRec: wasmInstance.exports.fibonacciRec as FibonacciFunction,
+          fibonacciMemo: wasmInstance.exports.fibonacciMemo as FibonacciFunction
         };
         this.loaded = true;
       });
@@ -86,7 +80,7 @@ export class WasmFibonacciComponent implements OnInit {
     return this.results.every(r => r[func] >= result[func]);
   }
 
-  private instantiateWasm(url: string, imports?: Object): Observable<WebAssembly.ResultObject> {
+  private instantiateWasm(url: string, imports?: WebAssembly.Imports): Observable<WebAssembly.WebAssemblyInstantiatedSource> {
     return this.http.get(url, { responseType: 'arraybuffer' })
       .pipe(
         mergeMap(bytes => WebAssembly.instantiate(bytes, imports))

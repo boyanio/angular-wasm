@@ -1,11 +1,13 @@
 import { Observable, range, defer, of, from } from 'rxjs';
 import { map, concatAll, delay, reduce } from 'rxjs/operators';
 
+export type FibonacciFunction = (num: number) => number;
+
 export interface BenchmarkSuite {
   name: string;
-  fibonacciLoop: (num: number) => number;
-  fibonacciRec: (num: number) => number;
-  fibonacciMemo: (num: number) => number;
+  fibonacciLoop: FibonacciFunction;
+  fibonacciRec: FibonacciFunction;
+  fibonacciMemo: FibonacciFunction;
 }
 
 export interface BenchmarkResult {

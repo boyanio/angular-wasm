@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SafeUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
+import { SafeUrl } from '@angular/platform-browser';
 import { EmWasmComponent } from '../em-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];

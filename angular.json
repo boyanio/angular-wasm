@@ -4,11 +4,11 @@
   "newProjectRoot": "projects",
   "projects": {
     "angular-wasm": {
+      "projectType": "application",
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
-      "projectType": "application",
       "prefix": "app",
-      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -17,11 +17,10 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.json",
-            "assets": [
-              "src/assets"
-            ],
-            "styles": [],
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": ["src/assets"],
+            "styles": ["node_modules/ladda/dist/ladda.min.css", "src/assets/css/style.css"],
             "scripts": []
           },
           "configurations": {
@@ -48,7 +47,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-wasm:build"
+            "browserTarget": "angular-wasm:build",
+            "open": true
           },
           "configurations": {
             "production": {
@@ -65,12 +65,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["tsconfig.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
