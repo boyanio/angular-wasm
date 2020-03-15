@@ -20,7 +20,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/assets"],
-            "styles": ["node_modules/ladda/dist/ladda.min.css", "src/assets/css/style.css"],
+            "styles": ["node_modules/ladda/dist/ladda.min.css", "src/styles.css"],
             "scripts": []
           },
           "configurations": {
