@@ -1,5 +1,5 @@
 import { Observable, range, defer, of, from } from 'rxjs';
-import { map, concatAll, delay, reduce } from 'rxjs/operators';
+import { map, concatAll, delay, reduce, flatMap } from 'rxjs/operators';
 
 export type FibonacciFunction = (num: number) => number;
 
@@ -23,8 +23,12 @@ const warmupSuite = (suite: BenchmarkSuite) => {
   suite.fibonacciMemo(1);
 };
 
-const runAndMeasure = (num: number, runs: number, func: (num: number) => number) =>
-  range(1, runs).pipe(
+function runAndMeasure(
+  num: number,
+  runs: number,
+  func: (num: number) => number
+): Observable<number> {
+  return range(1, runs).pipe(
     map(() =>
       defer(() => {
         const startTime = performance.now();
@@ -32,6 +36,7 @@ const runAndMeasure = (num: number, runs: number, func: (num: number) => number)
         const endTime = performance.now();
         let diff = endTime - startTime;
         if (diff === 0) {
+          // Add some minimal difference, even if they are equal
           diff = 0.000000000001;
         }
         return of(diff);
@@ -41,6 +46,7 @@ const runAndMeasure = (num: number, runs: number, func: (num: number) => number)
     delay(300),
     reduce((acc, val) => acc + val / runs, 0)
   );
+}
 
 export function runBenchmark(
   num: number,
@@ -54,10 +60,13 @@ export function runBenchmark(
   return from(suites).pipe(
     map(suite =>
       from(Object.keys(suite).filter(key => key !== 'name')).pipe(
+        // Create an array of result pairs [{ func: diff }]
         map(funcName =>
           runAndMeasure(num, runs, suite[funcName]).pipe(map(avg => ({ [funcName]: avg })))
         ),
         concatAll(),
+
+        // Convert the array into object { func1: diff1, funct2: diff2, ... }
         reduce<{ [x: string]: number }, BenchmarkResult>((acc, val) => Object.assign(acc, val), <
           BenchmarkResult
         >{ name: suite.name })

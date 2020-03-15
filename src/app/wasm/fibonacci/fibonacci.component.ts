@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { fibonacciLoop, fibonacciMemo, fibonacciRec } from './fibonacci';
@@ -16,12 +16,13 @@ const jsSuite: BenchmarkSuite = {
 @Component({
   templateUrl: './fibonacci.component.html'
 })
-export class WasmFibonacciComponent implements OnInit {
+export class WasmFibonacciComponent implements OnInit, OnDestroy {
   loaded: boolean;
   number: number;
   runs: number;
   isCalculating: boolean;
   results: BenchmarkResult[];
+  private runSubscription: Subscription;
   private wasmSuite: BenchmarkSuite;
 
   constructor(private http: HttpClient) {
@@ -30,7 +31,9 @@ export class WasmFibonacciComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, {}).subscribe(result => {
+    // Load "pure" WebAssembly, i.e. without any Emscripten API needed
+    // to work with it
+    this.instantiateWasm(`${environment.wasmAssetsPath}/fibonacci.wasm`, {}).then(result => {
       const wasmInstance = result.instance;
 
       this.wasmSuite = {
@@ -43,6 +46,10 @@ export class WasmFibonacciComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribeRun();
+  }
+
   start() {
     if (this.number < 1 || this.runs < 1) {
       return;
@@ -50,7 +57,13 @@ export class WasmFibonacciComponent implements OnInit {
 
     this.results = null;
     this.isCalculating = true;
-    runBenchmark(this.number, this.runs, [jsSuite, this.wasmSuite]).subscribe(results => {
+
+    this.unsubscribeRun();
+
+    this.runSubscription = runBenchmark(this.number, this.runs, [
+      jsSuite,
+      this.wasmSuite
+    ]).subscribe(results => {
       this.isCalculating = false;
       this.results = results;
     });
@@ -80,9 +93,16 @@ export class WasmFibonacciComponent implements OnInit {
   private instantiateWasm(
     url: string,
     imports?: WebAssembly.Imports
-  ): Observable<WebAssembly.WebAssemblyInstantiatedSource> {
+  ): Promise<WebAssembly.WebAssemblyInstantiatedSource> {
     return this.http
       .get(url, { responseType: 'arraybuffer' })
-      .pipe(mergeMap(bytes => WebAssembly.instantiate(bytes, imports)));
+      .pipe(mergeMap(bytes => WebAssembly.instantiate(bytes, imports)))
+      .toPromise();
+  }
+
+  private unsubscribeRun() {
+    if (this.runSubscription) {
+      this.runSubscription.unsubscribe();
+    }
   }
 }
