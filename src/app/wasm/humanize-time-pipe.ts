@@ -3,10 +3,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 const zeroRegex = new RegExp('^0[\\.\\,]0+$');
 
 const numberToFixed = (num: number) => {
-  let res;
-  do {
-    res = num.toFixed(5);
-  } while (zeroRegex.test(res));
+  const fractionDigits = 5;
+  let res = num.toFixed(fractionDigits);
+  if (zeroRegex.test(res)) {
+    // The number is 0.00000
+    res = `0.${'0'.repeat(fractionDigits - 1)}1`;
+  }
   return res;
 };
 
