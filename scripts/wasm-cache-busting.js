@@ -3,7 +3,6 @@
  * so that the client can fetch the correct one without cache issues.
  */
 const crypto = require("crypto");
-const glob = require("glob");
 const path = require("path");
 const fs = require("fs");
 
@@ -17,11 +16,16 @@ const generateChecksum = (str, algorithm, encoding) =>
 
 const result = {};
 
-glob.sync(path.join(rootDir, "src/assets/wasm/*.{js,wasm}")).forEach((filePath) => {
-  const fileName = path.basename(filePath);
-  const content = fs.readFileSync(filePath, { encoding: "utf-8" });
-  result[fileName] = generateChecksum(content);
-});
+const wasmDir = path.resolve(rootDir, "src/assets/wasm");
+for (let item of fs.readdirSync(wasmDir)) {
+  const itemPath = path.join(wasmDir, item);
+  if (!fs.lstatSync(itemPath).isFile()) {
+    continue;
+  }
+
+  const content = fs.readFileSync(itemPath, { encoding: "utf-8" });
+  result[item] = generateChecksum(content);
+}
 
 const cacheBustingFilePath = path.join(rootDir, "src/wasm-cache-busting.json");
 fs.writeFileSync(cacheBustingFilePath, JSON.stringify(result, null, 2));

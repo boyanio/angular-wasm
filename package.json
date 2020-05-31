@@ -44,7 +44,6 @@
     "@types/node": "~10.12.18",
     "chalk": "^4.0.0",
     "codelyzer": "^5.1.2",
-    "glob": "^7.1.6",
     "prettier": "^2.0.5",
     "tslint": "^5.18.0",
     "typescript": "^3.7.5"

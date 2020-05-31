@@ -22,7 +22,9 @@ export abstract class EmscriptenWasmComponent implements AfterViewInit {
   }
 
   protected resolveModule(): void {
-    const jsVersion = wasmCacheBusting[this.wasmJavaScriptLoader] ? `?v=${wasmCacheBusting[this.wasmJavaScriptLoader]}` : "";
+    const jsVersion = wasmCacheBusting[this.wasmJavaScriptLoader]
+      ? `?v=${wasmCacheBusting[this.wasmJavaScriptLoader]}`
+      : "";
     loadScript(this.moduleExportName, `${environment.wasmAssetsPath}/${this.wasmJavaScriptLoader}${jsVersion}`)
       .then(() => {
         const module = <EmscriptenModule>{
