@@ -1,9 +1,11 @@
 <section>
   <div class="container">
     <h1>Console logger</h1>
-    <p>Just start clicking randomly on the page. This example binds to window click directly in the C code by using Emscripten's
-      library. The C code uses
-      <em>printf</em>, which we have overloaded to add items to the list instead of printing them to the console (default behavior).</p>
+    <p>
+      Just start clicking randomly on the page. This example binds to window click directly in the C code by using
+      Emscripten's library. The C code uses <em>printf</em>, which I have overloaded to add items to the list instead of
+      printing them to the console (default behavior).
+    </p>
     <div class="demo-contents">
       <ul>
         <li *ngFor="let logItem of logItems">{{ logItem }}</li>

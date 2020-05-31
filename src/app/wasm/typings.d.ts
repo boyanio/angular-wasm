@@ -15,13 +15,7 @@ interface EmscriptenModule {
   print?(what: string): void;
   printErr?(what: string): void;
   locateFile?(file: string): string;
-  ccall?(
-    funcName: string,
-    returnType: string,
-    argumentTypes: string[],
-    arguments: any[],
-    options?: CcallOptions
-  ): any;
+  ccall?(funcName: string, returnType: string, argumentTypes: string[], arguments: any[], options?: CcallOptions): any;
   preRun?: Function[];
   postRun?: Function[];
   canvas?: HTMLCanvasElement;
@@ -33,13 +27,7 @@ interface EmscriptenModule {
     canWrite?: boolean,
     canOwn?: boolean
   ): void;
-  FS_createPreloadedFile?(
-    parent: string,
-    name: string,
-    url: string,
-    canRead?: boolean,
-    canWrite?: boolean
-  ): void;
+  FS_createPreloadedFile?(parent: string, name: string, url: string, canRead?: boolean, canWrite?: boolean): void;
   FS_readFile?(url: string, options?: EmscriptenReadFileOptions): any;
   FS_unlink?(path: string): void;
 }

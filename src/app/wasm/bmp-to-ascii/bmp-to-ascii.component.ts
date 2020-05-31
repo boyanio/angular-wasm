@@ -19,11 +19,7 @@ export class WasmBmpToAsciiComponent extends EmscriptenWasmComponent {
   error: string;
   fileUploadAccept: string;
 
-  constructor(
-    private ngZone: NgZone,
-    private domSanitizer: DomSanitizer,
-    private httpClient: HttpClient
-  ) {
+  constructor(private ngZone: NgZone, private domSanitizer: DomSanitizer, private httpClient: HttpClient) {
     super('BmpAsciiModule', 'bmp-to-ascii.js');
 
     this.fileUploadAccept = allowedMimeTypes.join(',');
@@ -71,9 +67,7 @@ export class WasmBmpToAsciiComponent extends EmscriptenWasmComponent {
       this.convertToAscii(fileName, inputArray);
 
       this.ngZone.run(() => {
-        this.uploadedFile = this.domSanitizer.bypassSecurityTrustUrl(
-          URL.createObjectURL(new Blob([inputArray]))
-        );
+        this.uploadedFile = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(new Blob([inputArray])));
       });
     };
     reader.readAsArrayBuffer(file);
@@ -95,12 +89,7 @@ export class WasmBmpToAsciiComponent extends EmscriptenWasmComponent {
     });
   }
 
-  private createDataFile(
-    fileName: string,
-    inputArray: Uint8Array,
-    canRead?: boolean,
-    canWrite?: boolean
-  ) {
+  private createDataFile(fileName: string, inputArray: Uint8Array, canRead?: boolean, canWrite?: boolean) {
     try {
       this.module.FS_createDataFile('/', fileName, inputArray, canRead, canWrite);
     } catch (err) {

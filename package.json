@@ -12,8 +12,8 @@
     "start:ng": "ng serve --aot",
     "start": "npm run build:wasm && npm run start:ng",
     "lint": "ng lint",
-    "prettier:check": "prettier --check src/**/*.ts",
-    "prettier:write": "prettier --check src/**/*.ts --write"
+    "prettier:check": "prettier --check src/**/*.{ts,html}",
+    "prettier:write": "prettier --check src/**/*.{ts,html} --write"
   },
   "repository": {
     "type": "git",

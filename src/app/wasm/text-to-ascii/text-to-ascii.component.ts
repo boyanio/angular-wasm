@@ -35,12 +35,7 @@ export class WasmTextToAsciiComponent extends EmscriptenWasmComponent {
         'display_ascii',
         'void',
         ['string', 'string', 'string', 'string'],
-        [
-          '/src/app/wasm/text-to-ascii/text-to-ascii.font.txt',
-          this.input,
-          this.foregroundChar,
-          this.backgroundChar
-        ]
+        ['/src/app/wasm/text-to-ascii/text-to-ascii.font.txt', this.input, this.foregroundChar, this.backgroundChar]
       );
     }
   }

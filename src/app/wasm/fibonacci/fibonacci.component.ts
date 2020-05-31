@@ -60,10 +60,7 @@ export class WasmFibonacciComponent implements OnInit, OnDestroy {
 
     this.unsubscribeRun();
 
-    this.runSubscription = runBenchmark(this.number, this.runs, [
-      jsSuite,
-      this.wasmSuite
-    ]).subscribe(results => {
+    this.runSubscription = runBenchmark(this.number, this.runs, [jsSuite, this.wasmSuite]).subscribe(results => {
       this.isCalculating = false;
       this.results = results;
     });
@@ -79,9 +76,7 @@ export class WasmFibonacciComponent implements OnInit, OnDestroy {
     }
 
     const fastest = result[func];
-    const slowest = this.results
-      .map(r => r[func])
-      .reduce((prev, val) => Math.max(prev, val), fastest);
+    const slowest = this.results.map(r => r[func]).reduce((prev, val) => Math.max(prev, val), fastest);
     const diff = slowest / fastest;
     return ` (${diff > 1 && diff < 2 ? diff.toFixed(2) : Math.round(diff)}x)`;
   }

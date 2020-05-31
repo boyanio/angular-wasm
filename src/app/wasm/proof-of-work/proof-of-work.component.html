@@ -1,33 +1,49 @@
 <section>
   <div class="container">
     <h1>Proof of work</h1>
-    <p>A simple
-      <a href="https://en.bitcoin.it/wiki/Proof_of_work" target="_blank">Proof of Work</a> system (similar to the one used in bitcoin). You need to provide an input string and the required
-      number of leading zeros. The program tries to find a nonce (by appending random numbers to your input string), whose
-      SHA-256 hash will have the same number of leading zeros. Beware, the more leading zeros you require, the more time
-      it will take, the more memory will be needed. You can set the required leading zeros to 3 and see what happens :-)
-      It could be unstable for higher number of leading zeros.</p>
+    <p>
+      A simple <a href="https://en.bitcoin.it/wiki/Proof_of_work" target="_blank">Proof of Work</a> system (similar to
+      the one used in bitcoin). You need to provide an input string and the required number of leading zeros. The
+      program tries to find a nonce (by appending random numbers to your input string), whose SHA-256 hash will have the
+      same number of leading zeros. Beware, the more leading zeros you require, the more time it will take, the more
+      memory will be needed. You can set the required leading zeros to 3 and see what happens :-) It could be unstable
+      for higher number of leading zeros.
+    </p>
     <div class="demo-contents">
       <div class="alert alert-warning" role="alert" *ngIf="error">{{ error }}</div>
       <div class="row">
         <div class="col-lg-7">
           <label>Input string</label>
-          <input type="text" class="form-control" placeholder="Enter some text..." [(ngModel)]="input" [disabled]="isWorking">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter some text..."
+            [(ngModel)]="input"
+            [disabled]="isWorking"
+          />
         </div>
         <div class="col-lg-3">
           <label>Leading zeros</label>
-          <input type="number" class="form-control" [(ngModel)]="leadingZeros" min="1" max="9" [disabled]="isWorking">
+          <input type="number" class="form-control" [(ngModel)]="leadingZeros" min="1" max="9" [disabled]="isWorking" />
         </div>
         <div class="col-lg-2">
           <label>&nbsp;</label>
-          <button type="button" class="btn btn-primary btn-block" (click)="findSolution()" [disabled]="!canFindSolution" [ladda]="isWorking">Find solution</button>
+          <button
+            type="button"
+            class="btn btn-primary btn-block"
+            (click)="findSolution()"
+            [disabled]="!canFindSolution"
+            [ladda]="isWorking"
+          >
+            Find solution
+          </button>
         </div>
       </div>
       <div class="row" *ngIf="proof">
         <div class="col-lg-12 proof-of-work-result">
           <div class="alert alert-warning" role="alert" *ngIf="!proof.success">The work is not proven :-(</div>
-          <div class="alert alert-success" role="alert" *ngIf="proof.success">The work is proven in
-            <strong>{{ proof.iterations }}</strong> iterations. The successful hash is
+          <div class="alert alert-success" role="alert" *ngIf="proof.success">
+            The work is proven in <strong>{{ proof.iterations }}</strong> iterations. The successful hash is
             <em>{{ proof.hash }}</em>
           </div>
         </div>

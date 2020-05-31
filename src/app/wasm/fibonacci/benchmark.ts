@@ -23,11 +23,7 @@ const warmupSuite = (suite: BenchmarkSuite) => {
   suite.fibonacciMemo(1);
 };
 
-function runAndMeasure(
-  num: number,
-  runs: number,
-  func: (num: number) => number
-): Observable<number> {
+function runAndMeasure(num: number, runs: number, func: (num: number) => number): Observable<number> {
   return range(1, runs).pipe(
     map(() =>
       defer(() => {
@@ -48,11 +44,7 @@ function runAndMeasure(
   );
 }
 
-export function runBenchmark(
-  num: number,
-  runs: number,
-  suites: BenchmarkSuite[]
-): Observable<BenchmarkResult[]> {
+export function runBenchmark(num: number, runs: number, suites: BenchmarkSuite[]): Observable<BenchmarkResult[]> {
   for (const suite of suites) {
     warmupSuite(suite);
   }
@@ -61,15 +53,13 @@ export function runBenchmark(
     map(suite =>
       from(Object.keys(suite).filter(key => key !== 'name')).pipe(
         // Create an array of result pairs [{ func: diff }]
-        map(funcName =>
-          runAndMeasure(num, runs, suite[funcName]).pipe(map(avg => ({ [funcName]: avg })))
-        ),
+        map(funcName => runAndMeasure(num, runs, suite[funcName]).pipe(map(avg => ({ [funcName]: avg })))),
         concatAll(),
 
         // Convert the array into object { func1: diff1, funct2: diff2, ... }
-        reduce<{ [x: string]: number }, BenchmarkResult>((acc, val) => Object.assign(acc, val), <
-          BenchmarkResult
-        >{ name: suite.name })
+        reduce<{ [x: string]: number }, BenchmarkResult>((acc, val) => Object.assign(acc, val), <BenchmarkResult>{
+          name: suite.name
+        })
       )
     ),
     concatAll(),

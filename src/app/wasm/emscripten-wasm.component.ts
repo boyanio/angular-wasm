@@ -19,15 +19,11 @@ export abstract class EmscriptenWasmComponent implements AfterViewInit {
   }
 
   protected resolveModule(): void {
-    loadScript(
-      this.moduleExportName,
-      `${environment.wasmAssetsPath}/${this.wasmJavaScriptLoader}`
-    ).then(() => {
+    loadScript(this.moduleExportName, `${environment.wasmAssetsPath}/${this.wasmJavaScriptLoader}`).then(() => {
       const module = <EmscriptenModule>{
         locateFile: (file: string) => `${environment.wasmAssetsPath}/${file}`
       };
-      const moduleDecorator: EmscriptenModuleDecorator =
-        this.moduleDecorator || ((mod: EmscriptenModule) => mod);
+      const moduleDecorator: EmscriptenModuleDecorator = this.moduleDecorator || ((mod: EmscriptenModule) => mod);
       moduleDecorator(module);
 
       this.resolvedModule = window[this.moduleExportName](module);

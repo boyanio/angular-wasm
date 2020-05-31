@@ -4,13 +4,7 @@ import { EmscriptenWasmComponent } from '../emscripten-wasm.component';
 
 const getFileName = (filePath: string) => filePath.split('/').reverse()[0];
 
-const allowedMimeTypes = [
-  'image/bmp',
-  'image/x-windows-bmp',
-  'image/jpeg',
-  'image/pjpeg',
-  'image/png'
-];
+const allowedMimeTypes = ['image/bmp', 'image/x-windows-bmp', 'image/jpeg', 'image/pjpeg', 'image/png'];
 
 const defaultImage = 'assets/img/3d-cube/angular.png';
 
@@ -36,11 +30,7 @@ export class Wasm3dCubeComponent extends EmscriptenWasmComponent {
 
     this.supportsFullscreen = !!requestFullscreen;
     this.fileUploadAccept = allowedMimeTypes.join(',');
-    this.predefinedImages = [
-      defaultImage,
-      'assets/img/3d-cube/cat.png',
-      'assets/img/3d-cube/embroidery.png'
-    ];
+    this.predefinedImages = [defaultImage, 'assets/img/3d-cube/cat.png', 'assets/img/3d-cube/embroidery.png'];
 
     this.moduleDecorator = mod => {
       mod.arguments = [getFileName(defaultImage)];

@@ -10,8 +10,8 @@
             <div class="col-lg-12">
               <h5>Choose one of the predefined bitmaps</h5>
             </div>
-            <div class="col-lg-4 text-center" *ngFor="let img of predefinedImages; let i = index;">
-              <img [src]="img" alt="Hello" class="img-thumbnail" (click)="convertPredefinedBitmap(i)">
+            <div class="col-lg-4 text-center" *ngFor="let img of predefinedImages; let i = index">
+              <img [src]="img" alt="Hello" class="img-thumbnail" (click)="convertPredefinedBitmap(i)" />
             </div>
           </div>
         </div>
@@ -23,14 +23,19 @@
             <div class="col-lg-12">
               <div class="input-group mb-2">
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" (change)="onFileUploaded($event.srcElement.files)" [accept]="fileUploadAccept">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    (change)="onFileUploaded($event.srcElement.files)"
+                    [accept]="fileUploadAccept"
+                  />
                   <label class="custom-file-label">Choose a bitmap file</label>
                 </div>
               </div>
               <small class="form-text text-muted">It supports only very simple BPM images.</small>
             </div>
             <div class="col-lg-12 text-center">
-              <img [src]="uploadedFile" *ngIf="uploadedFile">
+              <img [src]="uploadedFile" *ngIf="uploadedFile" />
             </div>
           </div>
         </div>

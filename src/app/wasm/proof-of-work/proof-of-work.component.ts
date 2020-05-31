@@ -13,15 +13,13 @@ export interface StatisticsItem {
   leadingZeros: number;
 }
 
-const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) =>
-  a.leadingZeros - b.leadingZeros;
+const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) => a.leadingZeros - b.leadingZeros;
 
 @Component({
   templateUrl: './proof-of-work.component.html',
   styleUrls: ['./proof-of-work.component.css']
 })
-export class WasmProofOfWorkComponent extends EmscriptenWasmComponent
-  implements AfterViewInit, OnDestroy {
+export class WasmProofOfWorkComponent extends EmscriptenWasmComponent implements AfterViewInit, OnDestroy {
   input: string;
   leadingZeros: number;
   proof: Proof;
@@ -71,13 +69,7 @@ export class WasmProofOfWorkComponent extends EmscriptenWasmComponent
     this.proof = null;
     this.isWorking = true;
     this.startTime = performance.now();
-    this.module.ccall(
-      'do_proof_of_work',
-      null,
-      ['string', 'number'],
-      [this.input, this.leadingZeros],
-      { async: true }
-    );
+    this.module.ccall('do_proof_of_work', null, ['string', 'number'], [this.input, this.leadingZeros], { async: true });
   }
 
   private onProofOfWorkDone(result: number, iterations: number, hash: string) {
