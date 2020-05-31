@@ -3,6 +3,7 @@
 /tmp
 /out-tsc
 /src/assets/wasm
+/src/wasm-cache-busting.json
 
 # dependencies
 /node_modules

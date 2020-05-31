@@ -1,10 +1,11 @@
 import { AfterViewInit } from "@angular/core";
 import { loadScript } from "./tools";
 import { environment } from "../../environments/environment";
+import wasmCacheBusting from "../../wasm-cache-busting.json";
 
 type EmscriptenModuleDecorator = (module: EmscriptenModule) => void;
 
-const noopModuleDecorator = ((mod: EmscriptenModule) => mod);
+const noopModuleDecorator = (mod: EmscriptenModule) => mod;
 
 export abstract class EmscriptenWasmComponent implements AfterViewInit {
   private resolvedModule: EmscriptenModule;
@@ -21,16 +22,22 @@ export abstract class EmscriptenWasmComponent implements AfterViewInit {
   }
 
   protected resolveModule(): void {
-    loadScript(this.moduleExportName, `${environment.wasmAssetsPath}/${this.wasmJavaScriptLoader}`).then(() => {
-      const module = <EmscriptenModule>{
-        locateFile: (file: string) => `${environment.wasmAssetsPath}/${file}`,
-      };
-      const moduleDecorator: EmscriptenModuleDecorator = this.moduleDecorator || noopModuleDecorator;
-      moduleDecorator(module);
+    const jsVersion = wasmCacheBusting[this.wasmJavaScriptLoader] ? `?v=${wasmCacheBusting[this.wasmJavaScriptLoader]}` : "";
+    loadScript(this.moduleExportName, `${environment.wasmAssetsPath}/${this.wasmJavaScriptLoader}${jsVersion}`)
+      .then(() => {
+        const module = <EmscriptenModule>{
+          locateFile: (file: string) => {
+            const fileVersion = wasmCacheBusting[file] ? `?v=${wasmCacheBusting[file]}` : "";
+            return `${environment.wasmAssetsPath}/${file}${fileVersion}`;
+          },
+        };
+        const moduleDecorator: EmscriptenModuleDecorator = this.moduleDecorator || noopModuleDecorator;
+        moduleDecorator(module);
 
-      return window[this.moduleExportName](module);
-    }).then(mod => {
-      this.resolvedModule = mod;
-    });
+        return window[this.moduleExportName](module);
+      })
+      .then((mod) => {
+        this.resolvedModule = mod;
+      });
   }
 }

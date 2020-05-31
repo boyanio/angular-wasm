@@ -19,7 +19,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/assets"],
+            "assets": ["src/assets", "src/.htaccess"],
             "styles": ["node_modules/ladda/dist/ladda.min.css", "src/styles.css"],
             "scripts": []
           },

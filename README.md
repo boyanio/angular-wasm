@@ -21,6 +21,7 @@ To build the demo, run the following in the root folder:
 
 ```
 npm i
+npm run wasm
 npm start
 ```
 
