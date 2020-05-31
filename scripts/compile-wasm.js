@@ -3,15 +3,17 @@ const exec = promisify(require("child_process").exec);
 const fs = require("fs");
 const path = require("path");
 
+const rootDir = path.resolve(__dirname, "../");
+
 const pfs = ["exists", "mkdir", "readdir", "unlink", "lstat"].reduce(
   (result, func) => Object.assign(result, { [func]: promisify(fs[func]) }),
   {}
 );
 
-const prepareWasmOutput = async () => {
+const ensureWasmOutputDirExists = async () => {
   console.log("Preparing wasm output folder...\n");
 
-  const src = "src/assets/wasm";
+  const src = path.resolve(rootDir, "src/assets/wasm");
   if (await pfs.exists(src)) {
     const files = await pfs.readdir(src);
     for (let file of files) {
@@ -22,33 +24,37 @@ const prepareWasmOutput = async () => {
   }
 };
 
-const compileWasm = async () => {
+const execCommand = (command) => exec(command, { cwd: rootDir }).then(
+  ({ stdout, stderr }) => {
+    const status = stdout + stderr;
+    if (status && status !== "undefined") {
+      console.log(status);
+    }
+  },
+  (err) => {
+    console.error("Error while compiling the sources.");
+    console.error(err);
+  }
+);
+
+const compileWasmSources = async () => {
   console.log("Compiling wasm sources...\n");
 
-  const commands = [];
-  for (let file of await pfs.readdir("src/app/wasm")) {
-    if ((await pfs.lstat(`src/app/wasm/${file}`)).isDirectory()) {
-      const command = require(`./src/app/wasm/${file}/build-cmd.js`).cmd;
-      commands.push(command);
+  const wasmDir = path.resolve(rootDir, "src/app/wasm");
+  for (let item of await pfs.readdir(wasmDir)) {
+    const itemPath = path.join(wasmDir, item);
+    if ((await pfs.lstat(itemPath)).isDirectory()) {
+      const buildFilePath = path.join(itemPath, "build-cmd.js")
+      const { cmd } = require(buildFilePath);
+
+      console.log(`Compiling wasm source for ${item}`);
+      console.log(`${cmd}\n`);
+      await execCommand(cmd);
     }
   }
-
-  return Promise.all(commands.map((command) => exec(command, { cwd: __dirname }))).then(
-    ([_, ...statuses]) => {
-      const status = statuses
-        .map((s) => s.stdour + s.stderr)
-        .filter((s) => !!s && s !== "undefined")
-        .join("\n");
-      console.log(status);
-    },
-    (err) => {
-      console.error("Error while compiling the sources.");
-      console.error(err);
-    }
-  );
 };
 
-const allPromises = [prepareWasmOutput, compileWasm];
+const allPromises = [ensureWasmOutputDirExists, compileWasmSources];
 
 return (async () => {
   for (const promise of allPromises) {
