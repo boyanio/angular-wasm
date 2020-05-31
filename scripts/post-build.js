@@ -1,5 +1,5 @@
-const { promisify } = require('util');
-const fs = require('fs');
+const { promisify } = require("util");
+const fs = require("fs");
 
 const copyFile = promisify(fs.copyFile);
 
@@ -9,5 +9,5 @@ async function copyFileToFolder(src, dest) {
 }
 
 return (async () => {
-  await copyFileToFolder('src/.htaccess', 'dist/.htaccess');
+  await copyFileToFolder("src/.htaccess", "dist/.htaccess");
 })();

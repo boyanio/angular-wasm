@@ -2,7 +2,7 @@
  * This is a simple typings definition for Emscripten's Module object
  */
 interface EmscriptenReadFileOptions {
-  encoding?: 'utf8' | 'binary';
+  encoding?: "utf8" | "binary";
   flags?: string;
 }
 

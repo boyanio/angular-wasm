@@ -1,5 +1,5 @@
 .jumbotron {
-  background-color: #18BC9C;
+  background-color: #18bc9c;
 }
 
 .jumbotron .lead {
@@ -7,7 +7,9 @@
   font-size: 1.5em;
 }
 
-.jumbotron a:focus, .jumbotron a:active, .jumbotron a:hover {
+.jumbotron a:focus,
+.jumbotron a:active,
+.jumbotron a:hover {
   color: #fff;
 }
 

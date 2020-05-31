@@ -1,6 +1,6 @@
-import { AfterViewInit } from '@angular/core';
-import { loadScript } from './tools';
-import { environment } from '../../environments/environment';
+import { AfterViewInit } from "@angular/core";
+import { loadScript } from "./tools";
+import { environment } from "../../environments/environment";
 
 type EmscriptenModuleDecorator = (module: EmscriptenModule) => void;
 
@@ -21,7 +21,7 @@ export abstract class EmscriptenWasmComponent implements AfterViewInit {
   protected resolveModule(): void {
     loadScript(this.moduleExportName, `${environment.wasmAssetsPath}/${this.wasmJavaScriptLoader}`).then(() => {
       const module = <EmscriptenModule>{
-        locateFile: (file: string) => `${environment.wasmAssetsPath}/${file}`
+        locateFile: (file: string) => `${environment.wasmAssetsPath}/${file}`,
       };
       const moduleDecorator: EmscriptenModuleDecorator = this.moduleDecorator || ((mod: EmscriptenModule) => mod);
       moduleDecorator(module);

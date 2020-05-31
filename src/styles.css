@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -6,15 +7,22 @@ body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
 }
 
 a {
-  color: #18BC9C;
+  color: #18bc9c;
 }
 
-a:focus, a:hover, a:active {
+a:focus,
+a:hover,
+a:active {
   color: #128f76;
 }
 
@@ -23,27 +31,29 @@ a:focus, a:hover, a:active {
 }
 
 .bg-primary {
-  background-color: #18BC9C !important;
+  background-color: #18bc9c !important;
 }
 
 .bg-secondary {
-  background-color: #2C3E50 !important;
+  background-color: #2c3e50 !important;
 }
 
 .text-primary {
-  color: #18BC9C !important;
+  color: #18bc9c !important;
 }
 
 .text-secondary {
-  color: #2C3E50 !important;
+  color: #2c3e50 !important;
 }
 
 .btn-primary {
-  background-color: #18BC9C;
-  border-color: #18BC9C;
+  background-color: #18bc9c;
+  border-color: #18bc9c;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
   background-color: #128f76;
   border-color: #128f76;
   box-shadow: none;
@@ -51,17 +61,19 @@ a:focus, a:hover, a:active {
 }
 
 .btn-secondary {
-  background-color: #2C3E50;
-  border-color: #2C3E50;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
 }
 
-.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
   background-color: #1a252f;
   border-color: #1a252f;
 }
 
 .demo-contents {
-  border: 2px dotted #18BC9C;
+  border: 2px dotted #18bc9c;
   padding: 10px;
   margin-bottom: 50px;
 }

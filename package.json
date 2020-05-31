@@ -6,25 +6,25 @@
   "scripts": {
     "build:ng": "ng build",
     "build:ng:prod": "ng build --prod",
-    "build:wasm": "node compile-wasm.js",
-    "build:prod": "npm run build:wasm && npm run build:ng:prod && node post-build.js",
+    "build:wasm": "node scripts/compile-wasm.js",
+    "build:prod": "npm run build:wasm && npm run build:ng:prod && node scripts/post-build.js",
     "build": "npm run build:wasm && npm run build:ng",
     "start:ng": "ng serve --aot",
     "start": "npm run build:wasm && npm run start:ng",
     "lint": "ng lint",
-    "prettier:check": "prettier --check src/**/*.{ts,html}",
-    "prettier:write": "prettier --check src/**/*.{ts,html} --write"
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --check . --write"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/boyanio/angular-wasm.git"
   },
   "keywords": [
-    "angular",
+    "Angular",
     "WebAssembly",
     "JavaScript"
   ],
-  "private": true,
+  "private": false,
   "author": "Boyan Mihaylov",
   "dependencies": {
     "@angular/common": "^9.0.6",
@@ -45,7 +45,7 @@
     "@angular/compiler-cli": "^9.0.6",
     "@types/node": "~10.12.18",
     "codelyzer": "^5.1.2",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.5",
     "tslint": "^5.18.0",
     "typescript": "^3.7.5"
   }

@@ -11,7 +11,7 @@ export function loadScript(id: string, url: string): Promise<void> {
   }
 
   return new Promise<void>((resolve, reject) => {
-    script = document.createElement('script');
+    script = document.createElement("script");
     document.body.appendChild(script);
 
     script.onload = () => resolve();
@@ -29,7 +29,7 @@ export function loadScript(id: string, url: string): Promise<void> {
  * @param offset the offset
  */
 export function utf8ToString(heap: Uint8Array, offset: number) {
-  let s = '';
+  let s = "";
   for (let i = offset; heap[i]; i++) {
     s += String.fromCharCode(heap[i]);
   }

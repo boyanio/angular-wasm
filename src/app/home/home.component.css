@@ -12,7 +12,7 @@
   font-size: 1.5rem;
   height: 150px;
   line-height: 150px;
-  border: 2px dotted #18BC9C;
+  border: 2px dotted #18bc9c;
   cursor: pointer;
 }
 
@@ -21,6 +21,6 @@
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
-  background-color: #18BC9C;
+  background-color: #18bc9c;
   text-decoration: none;
 }

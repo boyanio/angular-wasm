@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  wasmAssetsPath: '/assets/wasm'
+  wasmAssetsPath: "/assets/wasm",
 };
