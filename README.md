@@ -13,7 +13,7 @@ You can find the following examples:
 
 ## Prerequisites
 
-You need to download and install [Emscripten](http://kripken.github.io/emscripten-site/docs/getting_started/downloads.html). I have tested the build using Emscripten 1.39.16
+C/C++ code is built using Emscripten inside Docker, so you will need Docker running on your machine.
 
 ## Build
 
