@@ -32,9 +32,12 @@ const compileWasmSources = () => {
     const buildFilePath = path.join(itemPath, "build-cmd.js");
     const { cmd } = require(buildFilePath);
 
+    // fix for Windows
+    const formattedCmd = cmd.replace("$(pwd)", rootDir);
+
     console.log("\nCompiling wasm source for", chalk.green(item));
-    console.log(cmd);
-    execSync(cmd, { cwd: rootDir, stdio: "inherit" });
+    console.log(formattedCmd);
+    execSync(formattedCmd, { cwd: rootDir, stdio: "inherit" });
   }
 };
 

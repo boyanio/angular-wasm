@@ -1,4 +1,4 @@
-import { AfterViewInit } from "@angular/core";
+import { AfterViewInit, Directive } from "@angular/core";
 import { loadScript } from "./tools";
 import { environment } from "../../environments/environment";
 import wasmCacheBusting from "../../wasm-cache-busting.json";
@@ -7,6 +7,7 @@ type EmscriptenModuleDecorator = (module: EmscriptenModule) => void;
 
 const noopModuleDecorator = (mod: EmscriptenModule) => mod;
 
+@Directive()
 export abstract class EmscriptenWasmComponent implements AfterViewInit {
   private resolvedModule: EmscriptenModule;
   protected moduleDecorator: EmscriptenModuleDecorator;

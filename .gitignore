@@ -2,7 +2,8 @@
 /dist
 /tmp
 /out-tsc
-/src/assets/wasm
+/src/assets/wasm/*.*
+!/src/assets/wasm/.gitkeep
 /src/wasm-cache-busting.json
 
 # dependencies
