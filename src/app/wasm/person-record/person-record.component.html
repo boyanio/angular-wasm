@@ -1,0 +1,122 @@
+<section>
+  <div class="container">
+    <h1>Person record</h1>
+    <p>
+      This example shows how to pass complex data between JavaScript and WebAssembly. It uses Emscripten's
+      <a
+        href="https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html"
+        target="_blank"
+        rel="noopener"
+        >embind</a
+      >
+      to make a C++ struct available to JavaScript.
+    </p>
+    <div class="demo-contents">
+      <div class="row">
+        <div class="col-lg-6">
+          <form #personRecordForm="ngForm" (ngSubmit)="createRecord()" autocomplete="off">
+            <div class="row">
+              <div class="form-group col-lg-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  [(ngModel)]="model.personalInfo.name"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+              <div class="form-group col-lg-4">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="age"
+                    [(ngModel)]="model.personalInfo.age"
+                    placeholder="Age"
+                    required
+                    min="0"
+                    max="250"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">years</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-lg-4">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="height"
+                    [(ngModel)]="model.body.height"
+                    placeholder="Height"
+                    required
+                    min="0"
+                    max="700"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">cm</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-lg-4">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="weight"
+                    [(ngModel)]="model.body.weight"
+                    placeholder="Weight"
+                    required
+                    min="0"
+                    max="300"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">kg</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <button type="submit" class="btn btn-primary" [disabled]="personRecordForm.invalid">
+                  Create record
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <div class="media person-record" *ngIf="record">
+            <img [src]="record.avatar" alt="avatar" class="mr-3" />
+            <div class="media-body">
+              <h5 class="mt-0 mb-3">Hello, I am {{ record.personalInfo.name }}</h5>
+              <p>
+                I have the very unique <strong>ID {{ record.id }}</strong> generated as a hash of my data.
+              </p>
+              <div class="row">
+                <div class="col-sm">
+                  <span class="icon">
+                    <img src="assets/img/person-record/age.svg" alt="age" />
+                  </span>
+                  {{ record.personalInfo.age }} years
+                </div>
+                <div class="col-sm">
+                  <span class="icon">
+                    <img src="assets/img/person-record/height.svg" alt="height" />
+                  </span>
+                  {{ record.body.height }} cm
+                </div>
+                <div class="col-sm">
+                  <span class="icon">
+                    <img src="assets/img/person-record/weight.svg" alt="weight" />
+                  </span>
+                  {{ record.body.weight }} kg
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

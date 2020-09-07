@@ -8,6 +8,7 @@ import { WasmTextToAsciiComponent } from "./wasm/text-to-ascii/text-to-ascii.com
 import { WasmBmpToAsciiComponent } from "./wasm/bmp-to-ascii/bmp-to-ascii.component";
 import { Wasm3dCubeComponent } from "./wasm/3d-cube/3d-cube.component";
 import { WasmProofOfWorkComponent } from "./wasm/proof-of-work/proof-of-work.component";
+import { WasmPersonRecordComponent } from "./wasm/person-record/person-record.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -36,6 +37,11 @@ const routes: Routes = [
     path: "proof-of-work",
     component: WasmProofOfWorkComponent,
     data: { demo: true, name: "Proof of work" },
+  },
+  {
+    path: "person-record",
+    component: WasmPersonRecordComponent,
+    data: { demo: true, name: "Person Record" },
   },
 ];
 

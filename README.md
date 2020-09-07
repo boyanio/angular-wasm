@@ -10,6 +10,7 @@ You can find the following examples:
 - **BPM-to-ASCII** allows you to convert simple bitmaps to ASCII art.
 - **3D Cube** shows how you can render 3D graphics using OpenGL (which is then converted to WebGL) and manipulate it on the fly.
 - **Proof of Work** is a simple [Proof of Work](https://en.bitcoin.it/wiki/Proof_of_work) system (similar to the one used in bitcoin), which demonstrates activities that might take long time to complete.
+- **Person Record** shows how to pass complex data between JavaScript and WebAssembly.
 
 ## Prerequisites
 

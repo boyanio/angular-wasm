@@ -2,12 +2,13 @@
   <div class="container">
     <h1>Proof of work</h1>
     <p>
-      A simple <a href="https://en.bitcoin.it/wiki/Proof_of_work" target="_blank">Proof of Work</a> system (similar to
-      the one used in bitcoin). You need to provide an input string and the required number of leading zeros. The
-      program tries to find a nonce (by appending random numbers to your input string), whose SHA-256 hash will have the
-      same number of leading zeros. Beware, the more leading zeros you require, the more time it will take, the more
-      memory will be needed. You can set the required leading zeros to 3 and see what happens :-) It could be unstable
-      for higher number of leading zeros.
+      A simple
+      <a href="https://en.bitcoin.it/wiki/Proof_of_work" target="_blank" rel="noopener">Proof of Work</a> system
+      (similar to the one used in bitcoin). You need to provide an input string and the required number of leading
+      zeros. The program tries to find a nonce (by appending random numbers to your input string), whose SHA-256 hash
+      will have the same number of leading zeros. Beware, the more leading zeros you require, the more time it will
+      take, the more memory will be needed. You can set the required leading zeros to 3 and see what happens :-) It
+      could be unstable for higher number of leading zeros.
     </p>
     <div class="demo-contents">
       <div class="alert alert-warning" role="alert" *ngIf="error">{{ error }}</div>

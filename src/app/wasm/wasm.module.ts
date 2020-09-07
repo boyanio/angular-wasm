@@ -12,6 +12,7 @@ import { WasmTextToAsciiComponent } from "./text-to-ascii/text-to-ascii.componen
 import { WasmBmpToAsciiComponent } from "./bmp-to-ascii/bmp-to-ascii.component";
 import { Wasm3dCubeComponent } from "./3d-cube/3d-cube.component";
 import { WasmProofOfWorkComponent } from "./proof-of-work/proof-of-work.component";
+import { WasmPersonRecordComponent } from "./person-record/person-record.component";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { WasmProofOfWorkComponent } from "./proof-of-work/proof-of-work.componen
     WasmBmpToAsciiComponent,
     Wasm3dCubeComponent,
     WasmProofOfWorkComponent,
+    WasmPersonRecordComponent,
   ],
   imports: [
     BrowserModule,
