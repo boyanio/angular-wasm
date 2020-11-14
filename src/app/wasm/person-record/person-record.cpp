@@ -27,10 +27,7 @@ PersonRecord createRecord(PersonalInfo personalInfo, Body body) {
     std::to_string(body.height) +
     std::to_string(body.weight));
 
-  std::string avatar1 = "https://api.adorable.io/avatars/150/";
-  std::string avatar2 = std::to_string(personRecord.id);
-  std::string avatar3 = ".png";
-  personRecord.avatar = avatar1 + avatar2 + avatar3;
+  personRecord.avatar = "https://i.pravatar.cc/150?u=" + std::to_string(personRecord.id);
 
   personRecord.body = body;
   personRecord.personalInfo = personalInfo;
