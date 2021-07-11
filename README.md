@@ -12,13 +12,11 @@ You can find the following examples:
 - **Proof of Work** is a simple [Proof of Work](https://en.bitcoin.it/wiki/Proof_of_work) system (similar to the one used in bitcoin), which demonstrates activities that might take long time to complete.
 - **Person Record** shows how to pass complex data between JavaScript and WebAssembly.
 
-## Prerequisites
-
-C/C++ code is built using Emscripten inside Docker, so you will need Docker running on your machine.
-
 ## Build
 
-To build the demo, run the following in the root folder:
+You need Docker installed on your machine to compile the C/C++ examples to WebAssembly.  
+
+To build the demo locally run:
 
 ```
 npm i
@@ -26,7 +24,7 @@ npm run wasm
 npm start
 ```
 
-Then you can open your browser at `http://localhost:4200` to see the demo.
+Then you can open your browser at `http://localhost:4200` to see it.
 
 ### Pre-compiled dependencies
 
