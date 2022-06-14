@@ -14,12 +14,12 @@ You can find the following examples:
 
 ## Build
 
-You need Docker installed on your machine to compile the C/C++ examples to WebAssembly.  
+You need Docker installed on your machine, and the Docker daemon running, to compile the C/C++ examples to WebAssembly.
 
 To build the demo locally run:
 
 ```
-npm i
+npm i --legacy-peer-deps
 npm run wasm
 npm start
 ```
