@@ -12,8 +12,9 @@
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "target": "es2020",
-    "lib": ["es2018", "dom"]
+    "target": "ES2022",
+    "lib": ["es2018", "dom"],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
