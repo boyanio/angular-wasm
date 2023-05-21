@@ -1,5 +1,6 @@
 /src/assets/wasm
 /node_modules
 /dist
+/.angular
 
 *.md
