@@ -18,10 +18,16 @@ You need Docker installed on your machine to compile the C/C++ examples to WebAs
 
 To build the demo locally run:
 
-```
+```bash
 npm i
 npm run wasm
 npm start
+```
+
+To build a deployable artifact, simply replace the last command with
+
+```bash
+npm run build
 ```
 
 Then you can open your browser at `http://localhost:4200` to see it.
