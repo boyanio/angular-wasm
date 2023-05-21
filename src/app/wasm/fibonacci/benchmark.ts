@@ -1,5 +1,5 @@
 import { Observable, range, defer, of, from } from "rxjs";
-import { map, concatAll, delay, reduce, flatMap } from "rxjs/operators";
+import { map, concatAll, delay, reduce } from "rxjs/operators";
 
 export type FibonacciFunction = (num: number) => number;
 
@@ -56,7 +56,7 @@ export function runBenchmark(num: number, runs: number, suites: BenchmarkSuite[]
         map((funcName) => runAndMeasure(num, runs, suite[funcName]).pipe(map((avg) => ({ [funcName]: avg })))),
         concatAll(),
 
-        // Convert the array into object { func1: diff1, funct2: diff2, ... }
+        // Convert the array into object { func1: diff1, func2: diff2, ... }
         reduce<{ [x: string]: number }, BenchmarkResult>((acc, val) => Object.assign(acc, val), <BenchmarkResult>{
           name: suite.name,
         })

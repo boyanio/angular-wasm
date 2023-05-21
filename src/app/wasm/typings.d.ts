@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /**
  * This is a simple typings definition for Emscripten's Module object
  */
@@ -15,7 +16,13 @@ interface EmscriptenModule {
   print?(what: string): void;
   printErr?(what: string): void;
   locateFile?(file: string): string;
-  ccall?(funcName: string, returnType: string, argumentTypes: string[], arguments: any[], options?: CcallOptions): any;
+  ccall?<T>(
+    funcName: string,
+    returnType: string,
+    argumentTypes: string[],
+    arguments: unknown[],
+    options?: CcallOptions
+  ): T;
   preRun?: Function[];
   postRun?: Function[];
   canvas?: HTMLCanvasElement;
@@ -28,6 +35,6 @@ interface EmscriptenModule {
     canOwn?: boolean
   ): void;
   FS_createPreloadedFile?(parent: string, name: string, url: string, canRead?: boolean, canWrite?: boolean): void;
-  FS_readFile?(url: string, options?: EmscriptenReadFileOptions): any;
+  FS_readFile?(url: string, options?: EmscriptenReadFileOptions): string;
   FS_unlink?(path: string): void;
 }

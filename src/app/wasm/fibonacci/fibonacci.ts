@@ -1,7 +1,7 @@
 export const fibonacciLoop = (num: number) => {
   let a = 1;
   let b = 0;
-  let temp;
+  let temp: number;
 
   while (num >= 0) {
     temp = a;
@@ -21,7 +21,7 @@ export const fibonacciRec = (num: number) => {
   return fibonacciRec(num - 1) + fibonacciRec(num - 2);
 };
 
-export const fibonacciMemo = (num: number, memo?: Object) => {
+export const fibonacciMemo = (num: number, memo?: Record<number, number>) => {
   memo = memo || {};
 
   if (memo[num]) {

@@ -1,0 +1,3 @@
+src/assets
+src/app/wasm/**/*.emlib.js
+.eslintrc.js
