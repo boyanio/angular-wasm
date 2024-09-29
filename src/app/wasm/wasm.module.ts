@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { LaddaModule } from "angular2-ladda";
 
@@ -27,12 +27,12 @@ import { WasmPersonRecordComponent } from "./person-record/person-record.compone
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     FormsModule,
     LaddaModule.forRoot({
       style: "zoom-in",
       spinnerSize: 30,
     }),
   ],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class WasmModule {}

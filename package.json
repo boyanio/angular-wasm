@@ -24,16 +24,16 @@
   "private": false,
   "author": "Boyan Mihaylov",
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.0.10",
-    "@angular/cli": "^17.0.10",
-    "@angular/common": "^17.0.9",
-    "@angular/compiler": "^17.0.9",
-    "@angular/compiler-cli": "^17.0.9",
-    "@angular/core": "^17.0.9",
-    "@angular/forms": "^17.0.9",
-    "@angular/platform-browser": "^17.0.9",
-    "@angular/platform-browser-dynamic": "^17.0.9",
-    "@angular/router": "^17.0.9",
+    "@angular-devkit/build-angular": "^18.2.6",
+    "@angular/cli": "^18.2.6",
+    "@angular/common": "^18.2.6",
+    "@angular/compiler": "^18.2.6",
+    "@angular/compiler-cli": "^18.2.6",
+    "@angular/core": "^18.2.6",
+    "@angular/forms": "^18.2.6",
+    "@angular/platform-browser": "^18.2.6",
+    "@angular/platform-browser-dynamic": "^18.2.6",
+    "@angular/router": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
     "angular2-ladda": "^5.0.0",
@@ -42,7 +42,7 @@
     "eslint-config-prettier": "^8.8.0",
     "prettier": "^2.8.8",
     "rxjs": "^6.5.4",
-    "typescript": "^5.2.2",
-    "zone.js": "^0.14.3"
+    "typescript": "^5.5.4",
+    "zone.js": "^0.14.10"
   }
 }
