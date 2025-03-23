@@ -9,8 +9,9 @@ const getFileName = (filePath: string) => filePath.split("/").reverse()[0];
 const allowedMimeTypes = ["image/bmp", "image/x-windows-bmp"];
 
 @Component({
-  templateUrl: "./bmp-to-ascii.component.html",
-  styleUrls: ["./bmp-to-ascii.component.css"],
+    templateUrl: "./bmp-to-ascii.component.html",
+    styleUrls: ["./bmp-to-ascii.component.css"],
+    standalone: false
 })
 export class WasmBmpToAsciiComponent extends EmscriptenWasmComponent {
   output: string;

@@ -23,8 +23,9 @@ interface MyEmscriptenModule extends EmscriptenModule {
 }
 
 @Component({
-  templateUrl: "./person-record.component.html",
-  styleUrls: ["./person-record.component.css"],
+    templateUrl: "./person-record.component.html",
+    styleUrls: ["./person-record.component.css"],
+    standalone: false
 })
 export class WasmPersonRecordComponent extends EmscriptenWasmComponent<MyEmscriptenModule> {
   model: {

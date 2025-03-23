@@ -14,7 +14,8 @@ const jsSuite: BenchmarkSuite = {
 };
 
 @Component({
-  templateUrl: "./fibonacci.component.html",
+    templateUrl: "./fibonacci.component.html",
+    standalone: false
 })
 export class WasmFibonacciComponent implements OnInit, OnDestroy {
   loaded: boolean;

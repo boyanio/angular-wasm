@@ -16,8 +16,9 @@ export interface StatisticsItem {
 const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) => a.leadingZeros - b.leadingZeros;
 
 @Component({
-  templateUrl: "./proof-of-work.component.html",
-  styleUrls: ["./proof-of-work.component.css"],
+    templateUrl: "./proof-of-work.component.html",
+    styleUrls: ["./proof-of-work.component.css"],
+    standalone: false
 })
 export class WasmProofOfWorkComponent extends EmscriptenWasmComponent implements AfterViewInit, OnDestroy {
   input: string;

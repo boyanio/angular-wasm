@@ -2,7 +2,8 @@ import { Component, NgZone } from "@angular/core";
 import { EmscriptenWasmComponent } from "../emscripten-wasm.component";
 
 @Component({
-  templateUrl: "./console-logger.component.html",
+    templateUrl: "./console-logger.component.html",
+    standalone: false
 })
 export class WasmConsoleLoggerComponent extends EmscriptenWasmComponent {
   logItems: string[] = [];

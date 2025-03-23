@@ -23,7 +23,10 @@ const numberToFixed = (num: number) => {
  *   {{ 1.234 | humanizeTime }}
  *   formats to: 1.234ms
  */
-@Pipe({ name: "humanizeTime" })
+@Pipe({
+    name: "humanizeTime",
+    standalone: false
+})
 export class HumanizeTimePipe implements PipeTransform {
   transform(value: number) {
     const milliseconds = value % 1000;

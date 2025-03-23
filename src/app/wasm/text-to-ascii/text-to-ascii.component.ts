@@ -2,7 +2,8 @@ import { Component, NgZone } from "@angular/core";
 import { EmscriptenWasmComponent } from "../emscripten-wasm.component";
 
 @Component({
-  templateUrl: "./text-to-ascii.component.html",
+    templateUrl: "./text-to-ascii.component.html",
+    standalone: false
 })
 export class WasmTextToAsciiComponent extends EmscriptenWasmComponent {
   input: string;

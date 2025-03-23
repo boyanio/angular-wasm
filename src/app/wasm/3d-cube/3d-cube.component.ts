@@ -15,8 +15,9 @@ const requestFullscreen =
   document.documentElement["mozRequestFullScreen"];
 
 @Component({
-  templateUrl: "./3d-cube.component.html",
-  styleUrls: ["./3d-cube.component.css"],
+    templateUrl: "./3d-cube.component.html",
+    styleUrls: ["./3d-cube.component.css"],
+    standalone: false
 })
 export class Wasm3dCubeComponent extends EmscriptenWasmComponent {
   @ViewChild("canvas") canvas: ElementRef;
