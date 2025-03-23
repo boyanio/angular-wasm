@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { EmscriptenWasmComponent } from "../emscripten-wasm.component";
+import { FormsModule } from "@angular/forms";
+import { NgIf } from "@angular/common";
 
 interface PersonalInfo {
   name: string;
@@ -23,9 +25,9 @@ interface MyEmscriptenModule extends EmscriptenModule {
 }
 
 @Component({
-    templateUrl: "./person-record.component.html",
-    styleUrls: ["./person-record.component.css"],
-    standalone: false
+  templateUrl: "./person-record.component.html",
+  styleUrls: ["./person-record.component.css"],
+  imports: [FormsModule, NgIf],
 })
 export class WasmPersonRecordComponent extends EmscriptenWasmComponent<MyEmscriptenModule> {
   model: {

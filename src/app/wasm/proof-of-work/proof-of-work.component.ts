@@ -1,5 +1,9 @@
 import { Component, NgZone, AfterViewInit, OnDestroy } from "@angular/core";
 import { EmscriptenWasmComponent } from "../emscripten-wasm.component";
+import { HumanizeTimePipe } from "../humanize-time-pipe";
+import { FormsModule } from "@angular/forms";
+import { LaddaModule } from "angular2-ladda";
+import { NgForOf, NgIf } from "@angular/common";
 
 export interface Proof {
   success: boolean;
@@ -16,9 +20,9 @@ export interface StatisticsItem {
 const sortStatisticsItems = (a: StatisticsItem, b: StatisticsItem) => a.leadingZeros - b.leadingZeros;
 
 @Component({
-    templateUrl: "./proof-of-work.component.html",
-    styleUrls: ["./proof-of-work.component.css"],
-    standalone: false
+  templateUrl: "./proof-of-work.component.html",
+  styleUrls: ["./proof-of-work.component.css"],
+  imports: [HumanizeTimePipe, FormsModule, LaddaModule, NgIf, NgForOf],
 })
 export class WasmProofOfWorkComponent extends EmscriptenWasmComponent implements AfterViewInit, OnDestroy {
   input: string;

@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, NgZone } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { EmscriptenWasmComponent } from "../emscripten-wasm.component";
+import { NgFor, NgIf } from "@angular/common";
 
 const getFileName = (filePath: string) => filePath.split("/").reverse()[0];
 
@@ -15,9 +16,9 @@ const requestFullscreen =
   document.documentElement["mozRequestFullScreen"];
 
 @Component({
-    templateUrl: "./3d-cube.component.html",
-    styleUrls: ["./3d-cube.component.css"],
-    standalone: false
+  templateUrl: "./3d-cube.component.html",
+  styleUrls: ["./3d-cube.component.css"],
+  imports: [NgIf, NgFor],
 })
 export class Wasm3dCubeComponent extends EmscriptenWasmComponent {
   @ViewChild("canvas") canvas: ElementRef;

@@ -1,5 +1,4 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 
 import { HomeComponent } from "./home/home.component";
 import { WasmFibonacciComponent } from "./wasm/fibonacci/fibonacci.component";
@@ -10,7 +9,7 @@ import { Wasm3dCubeComponent } from "./wasm/3d-cube/3d-cube.component";
 import { WasmProofOfWorkComponent } from "./wasm/proof-of-work/proof-of-work.component";
 import { WasmPersonRecordComponent } from "./wasm/person-record/person-record.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: "", component: HomeComponent },
   {
     path: "fibonacci",
@@ -43,10 +42,4 @@ const routes: Routes = [
     component: WasmPersonRecordComponent,
     data: { demo: true, name: "Person Record" },
   },
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
+] as const;

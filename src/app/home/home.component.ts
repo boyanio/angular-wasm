@@ -1,5 +1,6 @@
+import { NgForOf } from "@angular/common";
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 
 export interface Demo {
   name: string;
@@ -7,10 +8,10 @@ export interface Demo {
 }
 
 @Component({
-    selector: "app-home",
-    templateUrl: "./home.component.html",
-    styleUrls: ["./home.component.css"],
-    standalone: false
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
+  imports: [RouterModule, NgForOf],
 })
 export class HomeComponent {
   demos: Demo[];

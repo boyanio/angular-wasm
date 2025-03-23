@@ -5,6 +5,10 @@ import { mergeMap } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 import { fibonacciLoop, fibonacciMemo, fibonacciRec } from "./fibonacci";
 import { BenchmarkSuite, BenchmarkResult, runBenchmark, FibonacciFunction } from "./benchmark";
+import { HumanizeTimePipe } from "../humanize-time-pipe";
+import { LaddaModule } from "angular2-ladda";
+import { FormsModule } from "@angular/forms";
+import { NgForOf, NgIf } from "@angular/common";
 
 const jsSuite: BenchmarkSuite = {
   name: "JavaScript",
@@ -14,8 +18,8 @@ const jsSuite: BenchmarkSuite = {
 };
 
 @Component({
-    templateUrl: "./fibonacci.component.html",
-    standalone: false
+  templateUrl: "./fibonacci.component.html",
+  imports: [HumanizeTimePipe, LaddaModule, FormsModule, NgIf, NgForOf],
 })
 export class WasmFibonacciComponent implements OnInit, OnDestroy {
   loaded: boolean;
